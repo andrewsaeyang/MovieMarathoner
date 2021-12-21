@@ -1,0 +1,6 @@
+framework module Pods_Movie_Marathoner {
+  umbrella header "Pods-Movie Marathoner-umbrella.h"
+
+  export *
+  module * { export * }
+}

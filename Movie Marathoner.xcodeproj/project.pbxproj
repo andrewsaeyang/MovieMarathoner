@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		493D91EA2771567D00749681 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91E92771567D00749681 /* NetworkError.swift */; };
+		493D91EC2771569200749681 /* FavoriteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91EB2771569200749681 /* FavoriteError.swift */; };
+		493D91EE277156A800749681 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91ED277156A800749681 /* KeyConstants.swift */; };
 		49F2657E275EE98F009B4808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2657D275EE98F009B4808 /* AppDelegate.swift */; };
 		49F26580275EE98F009B4808 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2657F275EE98F009B4808 /* SceneDelegate.swift */; };
 		49F26582275EE98F009B4808 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26581275EE98F009B4808 /* ViewController.swift */; };
@@ -19,6 +22,9 @@
 
 /* Begin PBXFileReference section */
 		29E0C653B6DB312A42C0FA69 /* Pods-Movie Marathoner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie Marathoner.debug.xcconfig"; path = "Target Support Files/Pods-Movie Marathoner/Pods-Movie Marathoner.debug.xcconfig"; sourceTree = "<group>"; };
+		493D91E92771567D00749681 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		493D91EB2771569200749681 /* FavoriteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteError.swift; sourceTree = "<group>"; };
+		493D91ED277156A800749681 /* KeyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
 		49F2657A275EE98F009B4808 /* Movie Marathoner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Marathoner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F2657D275EE98F009B4808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49F2657F275EE98F009B4808 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,8 +58,17 @@
 				29E0C653B6DB312A42C0FA69 /* Pods-Movie Marathoner.debug.xcconfig */,
 				E49318D8D00052E705260095 /* Pods-Movie Marathoner.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		493D91E82771567100749681 /* Helpers+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				493D91E92771567D00749681 /* NetworkError.swift */,
+				493D91EB2771569200749681 /* FavoriteError.swift */,
+				493D91ED277156A800749681 /* KeyConstants.swift */,
+			);
+			path = "Helpers+Extensions";
 			sourceTree = "<group>";
 		};
 		49F26571275EE98F009B4808 = {
@@ -77,6 +92,7 @@
 		49F2657C275EE98F009B4808 /* Movie Marathoner */ = {
 			isa = PBXGroup;
 			children = (
+				493D91E82771567100749681 /* Helpers+Extensions */,
 				49F26591275EE9FA009B4808 /* Movie Marathoner.entitlements */,
 				49F2657D275EE98F009B4808 /* AppDelegate.swift */,
 				49F2657F275EE98F009B4808 /* SceneDelegate.swift */,
@@ -212,9 +228,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				493D91EC2771569200749681 /* FavoriteError.swift in Sources */,
 				49F26582275EE98F009B4808 /* ViewController.swift in Sources */,
+				493D91EA2771567D00749681 /* NetworkError.swift in Sources */,
 				49F2657E275EE98F009B4808 /* AppDelegate.swift in Sources */,
 				49F26580275EE98F009B4808 /* SceneDelegate.swift in Sources */,
+				493D91EE277156A800749681 /* KeyConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

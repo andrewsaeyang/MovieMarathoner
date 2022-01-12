@@ -37,7 +37,7 @@ class MovieAPIController{
     static let searchTermKey = "query"
     
     // MARK: - FETCHES
-    static func fetchMovies(with searchTerm: String, completion: @escaping (Result<Movie, NetworkError>) -> Void){
+    static func fetchMovies(with searchTerm: String, completion: @escaping (Result<[Movie], NetworkError>) -> Void){
         
         guard let baseURL = baseURL else { return completion(.failure(.invalidURL))}
         
@@ -66,7 +66,7 @@ class MovieAPIController{
             
             do{
                 let MovieTL = try JSONDecoder().decode(MovieTopLevelObject.self, from: data)
-                completion(.success(MovieTL.results[0] ))
+                completion(.success(MovieTL.results ))
             }catch{
                 print("IS THIS THE Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 completion(.failure(.unableToDecode))

@@ -11,6 +11,9 @@ class MarathonModeReccomendationViewController: UIViewController {
     
     // MARK: - Outlets
     
+    // MARK: - Properties
+    
+    private let cellID = "reccomendationCell"
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

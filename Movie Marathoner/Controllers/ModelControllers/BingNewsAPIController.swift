@@ -9,7 +9,7 @@ import UIKit
 
 class BingNewsAPIController{
     
-    static let searchURL = "https://bing-news-search1.p.rapidapi.com/news/search?q=%22Studio%20Ghibli%22&textFormat=Raw&safeSearch=Moderate"
+    static let searchURL = "https://bing-news-search1.p.rapidapi.com/news/search?q=movies&textFormat=Raw&safeSearch=Moderate"
     static let headers = [
         "x-bingapis-sdk": "true",
         "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",

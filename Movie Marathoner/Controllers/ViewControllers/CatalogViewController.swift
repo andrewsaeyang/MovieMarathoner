@@ -8,15 +8,15 @@
 import UIKit
 import SkeletonView
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CatalogViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - Outlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - Properties
-    var films: [Film] = []
-    var filteredFilms: [Film] = []
+    var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
     var castMemebers: [Cast]?
     let highPriorityQueue = DispatchQueue.global(qos: .userInitiated)
     
@@ -28,15 +28,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.dataSource = self
         searchBar.delegate = self
         
-        fetchFilms()
-        fetchFavorites()
-        self.title = "Home"
+        fetchMovies(with: "Star Wars")
+        
+        self.title = "Catalog"
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if films.isEmpty{
+        if movies.isEmpty{
             
             collectionView.isSkeletonable = true
             collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
@@ -46,75 +46,46 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     // MARK: - Helper Methods
-    
-    func fetchFavorites(){
-        FavoriteController.shared.fetchAllFavorites { result in
+    func fetchMovies(with searchTerm: String){
+        MovieAPIController.fetchMovies(with: searchTerm) { [weak self](result) in
             DispatchQueue.main.async {
                 switch result{
-                case .success(let message):
-                    print(message)
+                case .success(let movies):
+                    self?.filteredMovies = movies
+                    print("sucess") // TODO: Fetch movies
+                    //self?.collectionView.reloadData()
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
+                self?.collectionView.stopSkeletonAnimation()
+                self?.view.hideSkeleton()
+                self?.collectionView.reloadData()
             }
         }
     }
     
-    func fetchFilms(){
-        StudioGhibliAPIController.fetchFilms { (result) in
-            DispatchQueue.main.async {
-                switch result{
-                case .success(let films):
-                    self.films = films
-                    self.filteredFilms = films
-                    
-                    
-                //self.collectionView.reloadData()
-                case .failure(let error):
-                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                }
-                
-                self.collectionView.stopSkeletonAnimation()
-                self.view.hideSkeleton()
-                self.collectionView.reloadData()
-            }
-        }
-    }
-    
-    func fetchCastMembers(for name: String, destination: FilmDetailViewController){
-        MovieAPIController.fetchMovies(with: name) { (result) in
-            
-            switch result{
-            case .success(let movie):
-                self.setCastMembers(for: movie, destination: destination)
-            case .failure(let error):
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-            }
-        }
-    }
-    
-    func setCastMembers(for movie: Movie, destination: FilmDetailViewController){
-        MovieAPIController.fetchCastMembers(for: movie.id) { (result) in
-            
-            switch result{
-            case .success(let cast):
-                destination.castMemebers = cast
-            case .failure(let error):
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-            }
-        }
-    }
+//    func setCastMembers(for movie: Movie, destination: FilmDetailViewController){
+//        MovieAPIController.fetchCastMembers(for: movie.id!) { (result) in // TODO: FIX OPTIONAL
+//            
+//            switch result{
+//            case .success(let cast):
+//                self.castMembers = cast 
+//            case .failure(let error):
+//                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+//            }
+//        }
+//    }
     
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredFilms.count
+        return filteredMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filmCell", for: indexPath) as? FilmCollectionViewCell else { return UICollectionViewCell()}
         
-        cell.film = filteredFilms[indexPath.row]
+        cell.movie = filteredMovies[indexPath.row]
         cell.delegate = self
         return cell
     }
@@ -126,23 +97,17 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                   let indexPath = collectionView.indexPath(for: cell),
                   let destination = segue.destination as? FilmDetailViewController else { return }
             
-            let filmToSend = filteredFilms[indexPath.row]
+            let filmToSend = filteredMovies[indexPath.row]
             
-            highPriorityQueue.async {
-                
-                self.segueCastMembers(for: filmToSend, destination: destination)
-                destination.film = filmToSend
-            }
+            destination.movie = filmToSend
         }
     }
     
-    func segueCastMembers(for film: Film, destination: FilmDetailViewController){
-        fetchCastMembers(for: film.originalTitle, destination: destination)
-    }
+    
 } // End of class
 
 //MARK: - Collection View Flow Layout Delegate Methods
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
+extension CatalogViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -166,40 +131,36 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 } //End of extension
 
 // MARK: - Skeleton CollectionView Data Source Function
-extension HomeViewController: SkeletonCollectionViewDataSource{
+extension CatalogViewController: SkeletonCollectionViewDataSource{
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
         return "filmCell"
     }
 }
 
 // MARK: - Search Bar Delegate Methods
-extension HomeViewController: UISearchBarDelegate{
+extension CatalogViewController: UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredFilms = films
+        self.filteredMovies = movies
         
         guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
             self.collectionView.reloadData()
             return
         }
         
-        let filtered = filteredFilms.filter {
-            $0.title.localizedCaseInsensitiveContains(searchTerm)
-        }
+        fetchMovies(with: searchTerm)
         
-        self.filteredFilms = filtered
         self.collectionView.reloadData()
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        filteredFilms = films
+        filteredMovies = movies
         collectionView.reloadData()
-        //searchBar.text = ""
         searchBar.resignFirstResponder()
     }
 } //End of extension
 
 // MARK: - Reload Collection Delegate
-extension HomeViewController: ReloadCollectionDelegate{
+extension CatalogViewController: ReloadCollectionDelegate{
     func updateCollectionView() {
         collectionView.reloadData()
     }

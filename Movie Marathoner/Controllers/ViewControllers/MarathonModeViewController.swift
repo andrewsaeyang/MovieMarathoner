@@ -8,7 +8,10 @@
 import UIKit
 
 class MarathonModeViewController: UIViewController {
-
+    // MARK: - Outlets
+    
+    // MARK: - Properties
+   
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

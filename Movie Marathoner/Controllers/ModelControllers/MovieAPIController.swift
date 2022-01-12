@@ -26,6 +26,7 @@ class MovieAPIController{
     static let searchComponent = "search"
     static let movieComponent = "movie"
     static let creditsComponent = "credits"
+    static let recommendationsComponent = "recommendations"
     
     // MARK: - QUERY ITEMS
     static let apiKeyKey = "api_key"
@@ -56,7 +57,7 @@ class MovieAPIController{
         guard let finalURL = components?.url else { return completion(.failure(.invalidURL))}
         print(finalURL)
         
-        let task = URLSession.shared.dataTask(with: finalURL) { data, response, error in
+        let task = URLSession.shared.dataTask(with: finalURL) { data, _, error in
             if let error = error{
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 return completion(.failure(.thrownError(error)))
@@ -64,16 +65,50 @@ class MovieAPIController{
             
             guard let data = data else { return completion(.failure(.noData))}
             
-            do{
+            do {
                 let MovieTL = try JSONDecoder().decode(MovieTopLevelObject.self, from: data)
                 completion(.success(MovieTL.results ))
-            }catch{
+            } catch {
                 print("IS THIS THE Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 completion(.failure(.unableToDecode))
             }
             
         }
         task.resume()
+    }
+    static func fetchRecommendation(with movieID: String, completion: @escaping (Result<[Movie], NetworkError>) -> Void){
+        guard let baseURL = baseURL else { return completion(.failure(.invalidURL))}
+        
+        //components
+        let versionURL = baseURL.appendingPathComponent(versionComponent)
+        let movieURL = versionURL.appendingPathComponent(movieComponent)
+        let searchTermURL = movieURL.appendingPathComponent(movieID)
+        let recommendationsURL = searchTermURL.appendingPathComponent(recommendationsComponent)
+        
+        //queries
+        var components = URLComponents(url: recommendationsURL, resolvingAgainstBaseURL: true)
+        components?.queryItems = [URLQueryItem(name: apiKeyKey, value: apiKeyValue)]
+        
+        guard let finalURL = components?.url else { return completion(.failure(.invalidURL))}
+        print(finalURL)
+        
+        let task = URLSession.shared.dataTask(with: finalURL) { data, _, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                return(completion(.failure(.thrownError(error))))
+            }
+            guard let data = data else { return completion(.failure(.noData))}
+            
+            do{
+                let recommendations = try JSONDecoder().decode(MovieTopLevelObject.self, from: data)
+                completion(.success(recommendations.results))
+            } catch {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                completion(.failure(.unableToDecode))
+            }
+        }
+        task.resume()
+        
     }
     
     static func fetchMoviePoster(with url: URL, completion: @escaping (Result<UIImage, NetworkError>) -> Void){
@@ -106,40 +141,6 @@ class MovieAPIController{
             
             let cacheKey = NSString(string: url.absoluteString)
             self.cache.setObject(image, forKey: cacheKey)
-            completion(.success(image))
-        }
-        task.resume()
-    }
-    
-    //https://image.tmdb.org/t/p/w500/xi8z6MjzTovVDg8Rho6atJCcKjL.jpg
-    ///This overloaded fetchPoster function is for specifically two films: "Only Yesterday" and "The Cat Returns"
-    static func fetchMoviePoster(for poster: Bool, completion: @escaping (Result<UIImage, NetworkError>) -> Void){
-        
-        let finalURL: URL
-        
-        if poster {
-            finalURL = URL(string: "https://image.tmdb.org/t/p/origin/tOSnFE9e82iH3ZAzSTtuOkBsabJ.jpg")!
-            
-        }else{
-            finalURL = URL(string: "https://image.tmdb.org/t/p/origin/avPMO5cnaGHgLaNiAIhy33WoQLm.jpg")!
-        }
-        
-        print(finalURL)
-        let task = URLSession.shared.dataTask(with: finalURL) { data, response, error in
-            if let error = error{
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                completion(.failure(.thrownError(error)))
-            }
-            
-            if let response = response as? HTTPURLResponse {
-                if response.statusCode != 200
-                {
-                    print("STATUS CODE: \(response.statusCode)")
-                }
-            }
-            
-            guard let data = data else { return completion(.failure(.noData)) }
-            guard let image = UIImage(data: data) else { return completion(.failure(.noImage))}
             completion(.success(image))
         }
         task.resume()

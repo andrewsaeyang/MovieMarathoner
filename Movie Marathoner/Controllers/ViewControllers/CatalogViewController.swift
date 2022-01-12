@@ -36,7 +36,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if movies.isEmpty{
+        if filteredMovies.isEmpty{
             
             collectionView.isSkeletonable = true
             collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))

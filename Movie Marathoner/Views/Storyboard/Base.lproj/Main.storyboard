@@ -451,10 +451,10 @@
                                 <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDP-F3-d6S" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="754"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rzy-Jm-GXP">
-                                                <rect key="frame" x="0.0" y="629" width="414" height="125"/>
+                                                <rect key="frame" x="0.0" y="574" width="414" height="125"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="125" id="gKR-k6-kCU"/>
@@ -517,7 +517,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5q5-nA-cFg">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="629"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="574"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L3Y-wr-D4d">
                                                 <rect key="frame" x="107" y="8" width="200" height="300"/>
@@ -576,24 +576,14 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </stackView>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jMZ-2k-xqK">
-                                                <rect key="frame" x="25" y="370" width="364" height="32"/>
-                                                <segments>
-                                                    <segment title="English"/>
-                                                    <segment title="日本語"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="didChangeSegment:" destination="Xd9-qc-Fe8" eventType="valueChanged" id="tAo-vT-P6d"/>
-                                                </connections>
-                                            </segmentedControl>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ye4-dT-INQ">
-                                                <rect key="frame" x="25" y="425" width="364" height="24"/>
+                                                <rect key="frame" x="25" y="370" width="364" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="(synopsis)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpZ-Dg-JIN">
-                                                <rect key="frame" x="25" y="457" width="364" height="100"/>
+                                                <rect key="frame" x="25" y="402" width="364" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Mcy-cR-gc1"/>
                                                 </constraints>
@@ -611,7 +601,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Voice Actors" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jto-cQ-cOO">
-                                                <rect key="frame" x="25" y="589" width="364" height="24"/>
+                                                <rect key="frame" x="25" y="534" width="364" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -620,23 +610,20 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Ye4-dT-INQ" secondAttribute="trailing" constant="25" id="2L1-Hf-sXj"/>
                                             <constraint firstItem="TpZ-Dg-JIN" firstAttribute="top" secondItem="Ye4-dT-INQ" secondAttribute="bottom" constant="8" symbolic="YES" id="3HB-wC-Yss"/>
-                                            <constraint firstItem="jMZ-2k-xqK" firstAttribute="leading" secondItem="5q5-nA-cFg" secondAttribute="leading" constant="25" id="4bU-H8-MoE"/>
                                             <constraint firstItem="L3Y-wr-D4d" firstAttribute="top" secondItem="5q5-nA-cFg" secondAttribute="top" constant="8" id="AC9-d6-gR0"/>
                                             <constraint firstItem="TpZ-Dg-JIN" firstAttribute="leading" secondItem="5q5-nA-cFg" secondAttribute="leading" constant="25" id="BVu-KH-UCd"/>
                                             <constraint firstItem="Ye4-dT-INQ" firstAttribute="leading" secondItem="5q5-nA-cFg" secondAttribute="leading" constant="25" id="Cqf-zK-JXO"/>
                                             <constraint firstAttribute="bottom" secondItem="Jto-cQ-cOO" secondAttribute="bottom" constant="16" id="FdH-IH-BFp"/>
+                                            <constraint firstItem="Ye4-dT-INQ" firstAttribute="top" secondItem="Wfn-WR-c38" secondAttribute="bottom" constant="16" id="L3o-P0-Da1"/>
                                             <constraint firstItem="Wfn-WR-c38" firstAttribute="width" secondItem="L3Y-wr-D4d" secondAttribute="width" id="LuG-S8-Q0l"/>
-                                            <constraint firstItem="jMZ-2k-xqK" firstAttribute="top" secondItem="Wfn-WR-c38" secondAttribute="bottom" constant="16" id="M10-k0-yc7"/>
                                             <constraint firstItem="Jto-cQ-cOO" firstAttribute="leading" secondItem="5q5-nA-cFg" secondAttribute="leading" constant="25" id="XBo-Yd-UqX"/>
                                             <constraint firstItem="L3Y-wr-D4d" firstAttribute="centerX" secondItem="5q5-nA-cFg" secondAttribute="centerX" id="bOp-sH-q3M"/>
                                             <constraint firstItem="Jto-cQ-cOO" firstAttribute="top" secondItem="TpZ-Dg-JIN" secondAttribute="bottom" constant="32" id="coH-Cr-kTo"/>
                                             <constraint firstItem="Wfn-WR-c38" firstAttribute="centerX" secondItem="5q5-nA-cFg" secondAttribute="centerX" id="elT-4F-gwz"/>
-                                            <constraint firstAttribute="trailing" secondItem="jMZ-2k-xqK" secondAttribute="trailing" constant="25" id="erK-o2-khQ"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="500" id="gup-AV-OPF"/>
                                             <constraint firstItem="Wfn-WR-c38" firstAttribute="top" secondItem="L3Y-wr-D4d" secondAttribute="bottom" constant="8" id="hs3-g9-pE8"/>
                                             <constraint firstAttribute="trailing" secondItem="TpZ-Dg-JIN" secondAttribute="trailing" constant="25" id="jnk-kB-R4L"/>
                                             <constraint firstAttribute="trailing" secondItem="Jto-cQ-cOO" secondAttribute="trailing" constant="25" id="lzP-gs-RBn"/>
-                                            <constraint firstItem="Ye4-dT-INQ" firstAttribute="top" secondItem="jMZ-2k-xqK" secondAttribute="bottom" constant="24" id="w1Q-3s-Tcm"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>

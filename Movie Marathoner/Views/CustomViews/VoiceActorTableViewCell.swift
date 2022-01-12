@@ -42,7 +42,6 @@ class VoiceActorTableViewCell: UITableViewCell {
                 DispatchQueue.main.async {
                     
                     switch result{
-                    
                     case .success(let image):
                         self.actorImageView.image = image
                     case .failure(let error):

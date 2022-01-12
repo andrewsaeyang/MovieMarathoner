@@ -18,7 +18,7 @@ class NewsViewController: UIViewController {
     let reuseConstant = "newsArticleCell"
     var newsArticles: [Article] = []
     
-    // MARK: - Lifecycles
+    // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "News"

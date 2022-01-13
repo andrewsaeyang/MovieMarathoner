@@ -14,11 +14,7 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Properties
-    var hours: Int = -1{
-        didSet{
-            print(hours)
-        }
-    }
+    var hours: Int = -1
     
     private let cellID = "movieCell"
     private let segueID = "toRecommendation"
@@ -75,6 +71,7 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
             let selectedMovie = movies[indexPath.row]
             
             destination.movie = selectedMovie
+            destination.hours = hours
         }
     }
     

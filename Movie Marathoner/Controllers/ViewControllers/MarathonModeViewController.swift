@@ -29,6 +29,7 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func findMoviesButtonTapped(_ sender: Any) {
         guard let hours = textField.text, !hours.isEmpty else { return }
+        // TODO: Validate that the number is an Integer > 0
         performSegue(withIdentifier: segueID, sender: self)
     }
     

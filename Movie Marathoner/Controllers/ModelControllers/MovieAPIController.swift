@@ -225,4 +225,37 @@ class MovieAPIController{
         }
         task.resume()
     }
+    static func translateData(with movies: [Movie], completion: @escaping (Result<[Movie], NetworkError>) -> Void){
+        var dummy: [Movie] = []
+        let dispatchGroup = DispatchGroup()
+        
+        for movie in movies{
+            if let movieID = movie.id{
+                dispatchGroup.enter()
+                fetchMovie(with: "\(movieID)") { (result) in
+                    
+                    switch result{
+                    case .success(let movie):
+                        if let title = movie.originalTitle{
+                            print("\(title) Successfully fetched. Runtime \(movie.runtime!)")
+                        } else {
+                            print("\(movie.id!) Missing")
+                        }
+                        dummy.append(movie)
+                        dispatchGroup.leave()
+                    case .failure(let error):
+                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    }
+                    
+                }
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+            
+            completion(.success(dummy))
+        }
+        
+    }
+    
+    
 }// End of class

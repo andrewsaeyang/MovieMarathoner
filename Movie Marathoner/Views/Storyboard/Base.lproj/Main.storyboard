@@ -38,7 +38,7 @@
                                     <constraint firstAttribute="height" constant="50" id="dB6-k4-z6U"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDO-iD-QPY">
                                 <rect key="frame" x="23" y="643" width="368" height="60"/>
@@ -48,7 +48,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Find my movies"/>
                                 <connections>
-                                    <segue destination="RtT-yX-rzY" kind="show" id="jMB-4B-CBb"/>
+                                    <action selector="findMoviesButtonTapped:" destination="6kG-ku-hir" eventType="touchUpInside" id="FvQ-LU-G0I"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -71,12 +71,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="VZd-qG-NY8"/>
                     <connections>
-                        <outlet property="numHoursTextField" destination="4ZH-5I-F2z" id="0pe-b5-o1W"/>
+                        <outlet property="findMoviesButton" destination="gDO-iD-QPY" id="fyl-bz-LEj"/>
+                        <outlet property="textField" destination="4ZH-5I-F2z" id="0pe-b5-o1W"/>
+                        <segue destination="RtT-yX-rzY" kind="show" identifier="toMovieSearch" id="9bk-06-x8l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cy1-Qe-lzX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-752" y="-686"/>
+            <point key="canvasLocation" x="-752.17391304347836" y="-686.38392857142856"/>
         </scene>
         <!--Reccomendations-->
         <scene sceneID="fDp-bH-7uo">

@@ -47,7 +47,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // MARK: - Helper Methods
     func fetchMovies(with searchTerm: String){
-        MovieAPIController.fetchMovies(with: searchTerm) { [weak self](result) in
+        MovieAPIController.searchMovies(with: searchTerm) { [weak self](result) in
             DispatchQueue.main.async {
                 switch result{
                 case .success(let movies):

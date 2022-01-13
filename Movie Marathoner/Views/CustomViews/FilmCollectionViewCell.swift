@@ -17,7 +17,7 @@ class FilmCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var filmImageView: UIImageView!
     
     // MARK: - PROPERTIES
-    
+    var hours: Int = -1
     var movie: Movie?{
         didSet{
             updateViews()
@@ -29,7 +29,7 @@ class FilmCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Actions
     @IBAction func favoriteButtonTapped(_ sender: Any) {
-        guard let movie = movie else { return }
+        guard let _ = movie else { return }
         //On load, compare if film being loaded is in the favorites list, if so, mark the heart as favorited
         //on tap, check if filmID is in the favorites array. if false, then crete new ckRecord. if true, remove it.
         //if

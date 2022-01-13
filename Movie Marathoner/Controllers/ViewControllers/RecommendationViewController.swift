@@ -14,18 +14,10 @@ class RecommendationViewController: UIViewController {
     // MARK: - Properties
     var movie: Movie?
     
-    var hours: Int = -1
-    private var totalTime = 0
-    
-    private var movieData: [Movie] = []
-    
-    private var movieList: [Movie] = []{
-        didSet{
-            setUpRecommendations()
-        }
-    }
-    private var recommendations: [Movie] = []
-    private var dummy: [Movie] = []
+    var marathonTime: Int = -1
+    private var finalRunTime = -1
+    private var movieRecommendations: [Movie] = []
+    private var finalRecommendation: [Movie] = []
     
     private let cellID = "reccomendationCell"
     
@@ -51,15 +43,8 @@ class RecommendationViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result{
                 case .success(let movies):
-                    self?.movieData = movies
-                    self?.setUpRecommendations()
+                    self?.translateData(with: movies)
                     print("Number of Recommendations found: \(movies.count)")
-                    
-                    //                    MovieAPIController.translateData(with: movies) { result in
-                    //                        DispatchQueue.main.async {
-                    //                            self?.movies = movies
-                    //                        }
-                    //                    }
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
@@ -69,21 +54,16 @@ class RecommendationViewController: UIViewController {
     
     //second Function
     
-    func setUpRecommendations(){
-        
+    func translateData(with movieData: [Movie]){
         MovieAPIController.translateData(with: movieData) { result in
-            
-            switch result{
-                
-            case .success(var movies):
-                movies.shuffle()
-                print(" 🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔")
-                self.printCheck(with: movies)
-            case .failure(let error):
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-            }
-            
+            self.movieRecommendations = result
+            self.movieRecommendations.shuffle()
+            self.continueSetup()
         }
+    }
+    
+    func setupReccomendation(){
+        
     }
     
     func printCheck(with movies: [Movie]) -> Void{
@@ -93,66 +73,36 @@ class RecommendationViewController: UIViewController {
             } else {
                 print("\(movie.id!) Missing")
             }
-            
-            
         }
-        
     }
     
     
-    //    func continueSetup(){
-    //
-    //
-    //
-    //        hours = hours * 60
-    //
-    //
-    //        for movie in movies{
-    //            if let runTime = movie.runtime{
-    //                let timeCheck = runTime + totalTime
-    //                if timeCheck <= hours{
-    //                    recommendations.append(movie)
-    //                    totalTime += runTime
-    //                }
-    //            }
-    //        }
-    //
-    //        print(countRunTime(for: recommendations))
-    //    }
+    func continueSetup(){
+        marathonTime = marathonTime * 60
+        
+        for movie in movieRecommendations{
+            if let runTime = movie.runtime{
+                let doesTimeFit = runTime + finalRunTime
+                
+                if doesTimeFit <= marathonTime{
+                    finalRecommendation.append(movie)
+                    finalRunTime += runTime
+                    print("Current runtime:\(countRunTime(for: finalRecommendation)) with \(finalRecommendation.count) movies")
+                }
+            }
+        }
+        
+        print(countRunTime(for: finalRecommendation))
+    }
     
     func countRunTime(for marathon: [Movie]) -> Int {
         var retVal = 0
         
-        for movie in movieList {
+        for movie in finalRecommendation {
             if let time = movie.runtime{
                 retVal += time
             }
         }
         return retVal
     }
-    
-    //Third function
-    func fetchMovie(with movieID: String){
-        
-        MovieAPIController.fetchMovie(with: movieID) { (result) in
-            
-            DispatchQueue.main.async {
-                switch result{
-                case .success(let movie):
-                    if let title = movie.originalTitle{
-                        
-                        print("\(title) Successfully fetched. Runtime \(movie.runtime!)")
-                    } else {
-                        print("\(movie.id!) Missing")
-                    }
-                    self.dummy.append(movie)
-                case .failure(let error):
-                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                }
-            }
-        }
-    }
-    
-    
-    
 }// End of class

@@ -71,7 +71,7 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
             let selectedMovie = movies[indexPath.row]
             
             destination.movie = selectedMovie
-            destination.hours = hours
+            destination.marathonTime = hours
         }
     }
     

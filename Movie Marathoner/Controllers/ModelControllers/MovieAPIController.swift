@@ -38,7 +38,7 @@ class MovieAPIController{
     static let searchTermKey = "query"
     
     // MARK: - FETCHES
-    static func fetchMovies(with searchTerm: String, completion: @escaping (Result<[Movie], NetworkError>) -> Void){
+    static func searchMovies(with searchTerm: String, completion: @escaping (Result<[Movie], NetworkError>) -> Void){
         
         guard let baseURL = baseURL else { return completion(.failure(.invalidURL))}
         
@@ -76,7 +76,45 @@ class MovieAPIController{
         }
         task.resume()
     }
-    static func fetchRecommendation(with movieID: String, completion: @escaping (Result<[Movie], NetworkError>) -> Void){
+    
+    static func fetchMovie(with movieID: String, completion: @escaping (Result<Movie, NetworkError>) -> Void){
+        
+        guard let baseURL = baseURL else { return completion(.failure(.invalidURL))}
+        //components
+        let versionURL = baseURL.appendingPathComponent(versionComponent)
+        let movieURL = versionURL.appendingPathComponent(movieComponent)
+        let searchTermURL = movieURL.appendingPathComponent(movieID)
+        
+        //queries
+        var components = URLComponents(url: searchTermURL, resolvingAgainstBaseURL: true)
+        components?.queryItems = [URLQueryItem(name: apiKeyKey, value: apiKeyValue)]
+        
+        guard let finalURL = components?.url else { return completion(.failure(.invalidURL))}
+        print(finalURL)
+        
+        let task = URLSession.shared.dataTask(with: finalURL) { data, _, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                return(completion(.failure(.thrownError(error))))
+            }
+            
+            guard let data = data else { return completion(.failure(.noData))}
+            
+            do {
+                let movie = try JSONDecoder().decode(Movie.self, from: data)
+                completion(.success(movie))
+                
+                
+            } catch {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                completion(.failure(.unableToDecode))
+            }
+        }
+        task.resume()
+        
+    }
+    
+    static func fetchRecommendations(with movieID: String, completion: @escaping (Result<[Movie], NetworkError>) -> Void){
         guard let baseURL = baseURL else { return completion(.failure(.invalidURL))}
         
         //components

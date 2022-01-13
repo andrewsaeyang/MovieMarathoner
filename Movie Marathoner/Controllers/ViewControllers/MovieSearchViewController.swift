@@ -14,8 +14,9 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Properties
-    private let cellID = "movieCell"
+    var hours: Int = -1
     
+    private let cellID = "movieCell"
     private let segueID = "toRecommendation"
     
     private var movies: [Movie] = []
@@ -32,7 +33,7 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     // MARK: - Helper Functions
     func fetchMovies(with searchTerm: String){
-        MovieAPIController.fetchMovies(with: searchTerm) { [weak self](result) in
+        MovieAPIController.searchMovies(with: searchTerm) { [weak self](result) in
             DispatchQueue.main.async {
                 guard let strongSelf = self else { return }
                 switch result{

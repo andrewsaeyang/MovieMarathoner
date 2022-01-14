@@ -20,6 +20,8 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
     var castMemebers: [Cast]?
     let highPriorityQueue = DispatchQueue.global(qos: .userInitiated)
     
+    private var debouncedSearch: Timer?
+    
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,53 +30,43 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self
         searchBar.delegate = self
         
-        fetchMovies(with: "Star Wars")
-        
+        // fetchMovies(with: "Star Wars")
+        collectionView.isSkeletonable = true
+        //collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
         self.title = "Catalog"
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if filteredMovies.isEmpty{
-            
-            collectionView.isSkeletonable = true
-            collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
-            //collectionView.showSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
-            
-        }
+        //        if filteredMovies.isEmpty{
+        //
+        //            collectionView.isSkeletonable = true
+        //            collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
+        //            //collectionView.showSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
+        //
+        //        }
     }
     
     // MARK: - Helper Methods
     func fetchMovies(with searchTerm: String){
+        
         MovieAPIController.searchMovies(with: searchTerm) { [weak self](result) in
             DispatchQueue.main.async {
                 switch result{
                 case .success(let movies):
                     self?.filteredMovies = movies
-                    print("sucess") // TODO: Fetch movies
-                    //self?.collectionView.reloadData()
+                    //                    self?.collectionView.reloadData()
+                    //                    self?.skeletonOff()
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
-                self?.collectionView.stopSkeletonAnimation()
-                self?.view.hideSkeleton()
+                
                 self?.collectionView.reloadData()
+                self?.skeletonOff()
             }
         }
     }
-    
-//    func setCastMembers(for movie: Movie, destination: FilmDetailViewController){
-//        MovieAPIController.fetchCastMembers(for: movie.id!) { (result) in // TODO: FIX OPTIONAL
-//            
-//            switch result{
-//            case .success(let cast):
-//                self.castMembers = cast 
-//            case .failure(let error):
-//                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-//            }
-//        }
-//    }
     
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -135,26 +127,49 @@ extension CatalogViewController: SkeletonCollectionViewDataSource{
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
         return "filmCell"
     }
+    
+    func skeletonOn(){
+        
+        view.showSkeleton()
+        collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
+        //collectionView.showSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
+        
+    }
+    
+    func skeletonOff(){
+        collectionView.stopSkeletonAnimation()
+        view.hideSkeleton()
+    }
 }
 
 // MARK: - Search Bar Delegate Methods
 extension CatalogViewController: UISearchBarDelegate{
     
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
         self.filteredMovies = movies
         
         guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
             self.collectionView.reloadData()
             return
         }
+        skeletonOn()
+        debouncedSearch?.invalidate()
         
-        fetchMovies(with: searchTerm)
-        
-        self.collectionView.reloadData()
+        debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+            
+            self.fetchMovies(with: searchTerm)
+            // self.collectionView.reloadData()
+            //self.skeletonOff()
+            
+        })
     }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filteredMovies = movies
         collectionView.reloadData()
+        skeletonOff()
         searchBar.resignFirstResponder()
     }
 } //End of extension

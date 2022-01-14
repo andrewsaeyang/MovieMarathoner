@@ -1,32 +1,25 @@
 //
-//  FilmCollectionViewCell.swift
+//  RecommendationCollectionViewCell.swift
 //  Movie Marathoner
 //
-//  Created by Andrew Saeyang on 12/20/21.
+//  Created by Andrew Saeyang on 1/13/22.
 //
 
 import UIKit
-protocol ReloadCollectionDelegate: AnyObject{
-    func updateCollectionView()
-}
 
-class FilmCollectionViewCell: UICollectionViewCell {
+class RecommendationCollectionViewCell: UICollectionViewCell {
+    
     
     // MARK: - Outlets
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var filmImageView: UIImageView!
     
     // MARK: - PROPERTIES
-    var hours: Int = -1
     var movie: Movie?{
         didSet{
             updateViews()
         }
     }
-    
-    weak var delegate: ReloadCollectionDelegate?
-    
-    
     // MARK: - Actions
     @IBAction func favoriteButtonTapped(_ sender: Any) {
         guard let _ = movie else { return }
@@ -39,8 +32,6 @@ class FilmCollectionViewCell: UICollectionViewCell {
     // MARK: - Helper Methods
     
     ///This function checks for a matching film and determins if it needs to create a ckRecord with that film or remove a ckRecord of that film
-    
-    
     func updateViews(){
         guard let movie = movie else { return }
         
@@ -49,7 +40,7 @@ class FilmCollectionViewCell: UICollectionViewCell {
     }
     
     func fetchPoster(for movie: Movie){
-        guard let posterPath = movie.posterPath else { return }
+        guard let posterPath = movie.posterPath else { return } // TODO: Find default poster
         MovieAPIController.fetchMoviePoster(with: posterPath) { [weak self]result in
             
             DispatchQueue.main.async {
@@ -68,3 +59,5 @@ class FilmCollectionViewCell: UICollectionViewCell {
         }
     }
 }// End of class
+
+

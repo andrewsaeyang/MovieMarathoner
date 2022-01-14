@@ -67,17 +67,4 @@ class NewsArticleTableViewCell: UITableViewCell {
         dateLabel.text = dateFormatterPrint.string(from: date)
     }
     
-    func dateFormat(date1: String) -> Date{
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss UTC"
-        let date = dateFormatter.date(from:date1)!
-        
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month,.day], from: date)
-        
-        let finalDate = calendar.date(from: components)!
-        
-        return finalDate
-    }
 }// End of class

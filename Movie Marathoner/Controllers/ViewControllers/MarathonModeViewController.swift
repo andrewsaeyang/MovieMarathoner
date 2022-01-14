@@ -23,8 +23,11 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         findMoviesButton.isUserInteractionEnabled = false
         findMoviesButton.alpha = 0.5
         
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dissmissedKeyboard)))
+        
+      
     }
-    
+
     // MARK: - Actions
     
     @IBAction func findMoviesButtonTapped(_ sender: Any) {
@@ -44,7 +47,7 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         } else {
             findMoviesButton.isUserInteractionEnabled = true
             findMoviesButton.alpha = 1.0
-
+            
         }
         
         
@@ -52,6 +55,15 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         return string.rangeOfCharacter(from: invalidCharacters) == nil
         
         
+    }
+    
+    @objc func dissmissedKeyboard() {
+        textField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK: - Navigation

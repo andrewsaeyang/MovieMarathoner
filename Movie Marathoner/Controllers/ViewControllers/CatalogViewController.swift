@@ -30,12 +30,13 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self
         searchBar.delegate = self
         
-        // fetchMovies(with: "Star Wars")
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissedKeyboard)))
+        
         collectionView.isSkeletonable = true
-        //collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
         self.title = "Catalog"
         
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -66,6 +67,10 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
                 self?.skeletonOff()
             }
         }
+    }
+    
+    @objc func dismissedKeyboard() {
+        searchBar.resignFirstResponder()
     }
     
     // MARK: UICollectionViewDataSource

@@ -29,6 +29,10 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+        
+      //  self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dissmissedKeyboard)))
+        
+      
     }
     
     // MARK: - Helper Functions
@@ -46,6 +50,11 @@ class MovieSearchViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
     }
+    
+    @objc func dissmissedKeyboard() {
+        searchBar.resignFirstResponder()
+    }
+    
     
     // MARK: - Tableview DataSource Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

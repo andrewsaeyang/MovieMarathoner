@@ -8,7 +8,7 @@
 import UIKit
 
 class MovieSearchTableViewCell: UITableViewCell {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
@@ -24,10 +24,7 @@ class MovieSearchTableViewCell: UITableViewCell {
     func updateView(){
         guard let movie = movie else { return }
         titleLabel.text = movie.originalTitle
-        releaseDateLabel.text = "TODO" // TODO:
+        releaseDateLabel.text = movie.releaseDateFormatted
         scoreLabel.text = "\(movie.rating ?? 0.0)"
     }
-    
- 
-
-}
+}// End of class

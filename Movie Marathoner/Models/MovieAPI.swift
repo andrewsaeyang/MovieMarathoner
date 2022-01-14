@@ -21,6 +21,7 @@ struct Movie: Decodable{
     let rating: Double?
     let id: Int?
     let runtime: Int?
+    let releaseDate: String?
     
     enum CodingKeys: String, CodingKey{
         case originalTitle = "original_title"
@@ -29,8 +30,22 @@ struct Movie: Decodable{
         case rating = "vote_average"
         case id = "id"
         case runtime = "runtime"
+        case releaseDate = "release_date"
+    }
+    var releaseDateFormatted: String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            guard let releaseDate = releaseDate,
+                  let date = dateFormatter.date(from: releaseDate) else { return "No release date available"}
+            
+            let dateFormatterPrint = DateFormatter()
+            dateFormatterPrint.dateFormat = "MMM dd, yyyy"
+            
+            return dateFormatterPrint.string(from: date)
     }
 }
+
 
 // MARK: - CastTopLevelObject
 struct CastTopLevelObject: Decodable {

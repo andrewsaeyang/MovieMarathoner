@@ -30,16 +30,14 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self
         searchBar.delegate = self
         
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissedKeyboard)))
-        
         collectionView.isSkeletonable = true
         self.title = "Catalog"
         
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         //        if filteredMovies.isEmpty{
         //
         //            collectionView.isSkeletonable = true
@@ -57,8 +55,8 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
                 switch result{
                 case .success(let movies):
                     self?.filteredMovies = movies
-                    //                    self?.collectionView.reloadData()
-                    //                    self?.skeletonOff()
+                    // self?.collectionView.reloadData()
+                    // self?.skeletonOff()
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
@@ -67,10 +65,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
                 self?.skeletonOff()
             }
         }
-    }
-    
-    @objc func dismissedKeyboard() {
-        searchBar.resignFirstResponder()
     }
     
     // MARK: UICollectionViewDataSource
@@ -89,7 +83,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toDetailVC"{
+        if segue.identifier == "toDetailVC" {
             guard let cell = sender as? FilmCollectionViewCell,
                   let indexPath = collectionView.indexPath(for: cell),
                   let destination = segue.destination as? FilmDetailViewController else { return }
@@ -99,13 +93,10 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
             destination.movie = filmToSend
         }
     }
-    
-    
 } // End of class
 
 //MARK: - Collection View Flow Layout Delegate Methods
 extension CatalogViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         //we want 90% of the screen to be used, / 2 - 45%
@@ -149,28 +140,49 @@ extension CatalogViewController: SkeletonCollectionViewDataSource{
 
 // MARK: - Search Bar Delegate Methods
 extension CatalogViewController: UISearchBarDelegate{
+    //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    //
+    //        self.filteredMovies = movies
+    //
+    //        guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
+    //            self.collectionView.reloadData()
+    //            return
+    //        }
+    //        //skeletonOn()
+    //        debouncedSearch?.invalidate()
+    //
+    //        debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+    //
+    //            self.fetchMovies(with: searchTerm)
+    //
+    //            self.collectionView.reloadData()
+    //            //self.skeletonOff()
+    //
+    //        })
+    //    }
     
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.filteredMovies = movies
         
         guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
             self.collectionView.reloadData()
             return
         }
-        skeletonOn()
+        //skeletonOn()
         debouncedSearch?.invalidate()
         
         debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
             
             self.fetchMovies(with: searchTerm)
-            // self.collectionView.reloadData()
+            
+            self.collectionView.reloadData()
             //self.skeletonOff()
+            //searchBar.resignFirstResponder()
+            self.searchBar.endEditing(true)
             
         })
+        
     }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filteredMovies = movies
         collectionView.reloadData()

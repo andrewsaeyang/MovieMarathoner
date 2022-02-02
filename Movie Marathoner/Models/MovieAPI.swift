@@ -44,6 +44,19 @@ struct Movie: Decodable{
             
             return dateFormatterPrint.string(from: date)
     }
+    
+    var releaseYearFormatted: String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            guard let releaseDate = releaseDate,
+                  let date = dateFormatter.date(from: releaseDate) else { return "No release date available"}
+            
+            let dateFormatterPrint = DateFormatter()
+            dateFormatterPrint.dateFormat = "yyyy"
+            
+            return dateFormatterPrint.string(from: date)
+    }
 }
 
 

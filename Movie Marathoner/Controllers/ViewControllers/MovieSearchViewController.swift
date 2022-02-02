@@ -6,112 +6,174 @@
 //
 
 import UIKit
+import SkeletonView
 
-class MovieSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class MovieSearchViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
     // MARK: - Outlets
-    @IBOutlet weak var tableView: UITableView!
+    
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - Properties
     var hours: Int = -1
+    var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
+    var castMemebers: [Cast]?
+    let highPriorityQueue = DispatchQueue.global(qos: .userInitiated)
     
     private let cellID = "movieCell"
     private let segueID = "toRecommendation"
     
-    private var movies: [Movie] = []
     private var debouncedSearch: Timer?
     
-    // MARK: - Lifecycle
+    // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         searchBar.delegate = self
         
-      //  self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dissmissedKeyboard)))
+        collectionView.isSkeletonable = true
+        self.title = "Catalog"
         
-      
+        collectionView.keyboardDismissMode = .onDrag
+        
+        
     }
     
-    // MARK: - Helper Functions
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //        if filteredMovies.isEmpty{
+        //
+        //            collectionView.isSkeletonable = true
+        //            collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
+        //            //collectionView.showSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
+        //
+        //        }
+    }
+    
+    // MARK: - Helper Methods
     func fetchMovies(with searchTerm: String){
+        
         MovieAPIController.searchMovies(with: searchTerm) { [weak self](result) in
             DispatchQueue.main.async {
-                guard let strongSelf = self else { return }
                 switch result{
-                case .success(let results):
-                    strongSelf.movies = results
-                    strongSelf.tableView.reloadData()
+                case .success(let movies):
+                    self?.filteredMovies = movies
+                    // self?.collectionView.reloadData()
+                    // self?.skeletonOff()
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
+                
+                self?.collectionView.reloadData()
+                self?.skeletonOff()
             }
         }
     }
     
-    @objc func dissmissedKeyboard() {
-        searchBar.resignFirstResponder()
+    // MARK: UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filteredMovies.count
     }
     
-    
-    // MARK: - Tableview DataSource Functions
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? MovieSearchTableViewCell else { return UITableViewCell()}
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        cell.movie = movies[indexPath.row]
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filmCell", for: indexPath) as? FilmCollectionViewCell else { return UICollectionViewCell()}
         
+        cell.movie = filteredMovies[indexPath.row]
         return cell
     }
     
-    // MARK: - Segues
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Identifier
-        if segue.identifier == segueID{
-            
-            guard let indexPath = tableView.indexPathForSelectedRow,
+        if segue.identifier == segueID {
+            guard let cell = sender as? FilmCollectionViewCell,
+                  let indexPath = collectionView.indexPath(for: cell),
                   let destination = segue.destination as? RecommendationViewController else { return }
             
-            let selectedMovie = movies[indexPath.row]
+            let filmToSend = filteredMovies[indexPath.row]
             
-            destination.movie = selectedMovie
+            destination.movie = filmToSend
             destination.marathonTime = hours
         }
     }
-    
-    
-    
 } // End of class
+
+//MARK: - Collection View Flow Layout Delegate Methods
+extension MovieSearchViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        //we want 90% of the screen to be used, / 2 - 45%
+        
+        let width = view.frame.width * 0.45
+        
+        return CGSize(width: width, height: width * 3/2 )
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let width = view.frame.width * 0.45
+        let cellsTotalWidth = width * 2
+        let leftOverWidth = view.frame.width - cellsTotalWidth
+        let inset = leftOverWidth / 3
+        //insets == padding
+        return UIEdgeInsets(top: inset, left: inset, bottom: 0, right: inset)
+    }
+} //End of extension
+
+// MARK: - Skeleton CollectionView Data Source Function
+extension MovieSearchViewController: SkeletonCollectionViewDataSource{
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "filmCell"
+    }
+    
+    func skeletonOn(){
+        
+        view.showSkeleton()
+        collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
+        //collectionView.showSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
+        
+    }
+    
+    func skeletonOff(){
+        collectionView.stopSkeletonAnimation()
+        view.hideSkeleton()
+    }
+}
 
 // MARK: - Search Bar Delegate Methods
 extension MovieSearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            resetSearch()
+        
+        self.filteredMovies = movies
+        
+        guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
+            self.collectionView.reloadData()
             return
         }
+        //skeletonOn()
         debouncedSearch?.invalidate()
-        debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            self.fetchMovies(with: searchText)
-            self.tableView.reloadData()
-        }
+        
+        debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+            
+            self.fetchMovies(with: searchTerm)
+            
+            self.collectionView.reloadData()
+            //self.skeletonOff()
+            
+        })
     }
+    
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        resetSearch()
+        filteredMovies = movies
+        collectionView.reloadData()
+        skeletonOff()
         searchBar.resignFirstResponder()
     }
-    
-    func resetSearch(){
-        debouncedSearch?.invalidate()
-        debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            self.movies = []
-            self.tableView.reloadData()
-        }
-    }
-}
+} //End of extension

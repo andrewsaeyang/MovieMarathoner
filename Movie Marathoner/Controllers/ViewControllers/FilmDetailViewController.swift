@@ -8,7 +8,7 @@
 import UIKit
 import SkeletonView
 
-class FilmDetailViewController: UIViewController {
+class FilmDetailViewController: UIViewController, SkeletonTableViewDataSource {
     
     // MARK: - Outlets
     @IBOutlet weak var filmImageView: UIImageView!
@@ -31,22 +31,23 @@ class FilmDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+    
+        filmImageView.contentMode = .scaleAspectFill
+        filmImageView.layer.cornerRadius = 8
         
         updateViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fireSkeleton()
         tableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
-        if filmTitleLabel.text == "(title)"{
-            
-            fireSkeleton()
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         tableView.removeObserver(self, forKeyPath: "contentSize")
     }
     
@@ -66,17 +67,16 @@ class FilmDetailViewController: UIViewController {
         
         title = movie.originalTitle
         filmTitleLabel.text = movie.originalTitle
-        filmYearLabel.text = "TODO" // TODO: Add year release
+        filmYearLabel.text = movie.releaseYearFormatted
         synopsisTextView.text = movie.overview
-        tableView.reloadData()
         
         fetchPoster(for: movie)
         fetchCastMembers(for: movie)
-        
-        
+    
     }
     
     func fireSkeleton(){
+        
         filmImageView.isSkeletonable = true
         filmTitleLabel.isSkeletonable = true
         filmYearLabel.isSkeletonable = true
@@ -86,6 +86,13 @@ class FilmDetailViewController: UIViewController {
         filmTitleLabel.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .silver), animation: nil, transition: .crossDissolve(0.25))
         filmYearLabel.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .silver), animation: nil, transition: .crossDissolve(0.25))
         synopsisTextView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .silver), animation: nil, transition: .crossDissolve(0.25))
+    }
+    func unFireSkeleton(){
+        filmImageView.stopSkeletonAnimation()
+        filmTitleLabel.stopSkeletonAnimation()
+        filmYearLabel.stopSkeletonAnimation()
+        synopsisTextView.stopSkeletonAnimation()
+        view.hideSkeleton()
     }
     
     
@@ -98,35 +105,27 @@ class FilmDetailViewController: UIViewController {
                     self?.view.contentMode = .scaleAspectFill
                     
                     self?.filmImageView.image = image
-                    self?.filmImageView.contentMode = .scaleAspectFill
-                    self?.filmImageView.layer.cornerRadius = 8
+                   
                 case .failure(let error):
                     print("Error IMAGE in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
-                self!.filmImageView.stopSkeletonAnimation()
-                self!.filmTitleLabel.stopSkeletonAnimation()
-                self!.filmYearLabel.stopSkeletonAnimation()
-                self!.synopsisTextView.stopSkeletonAnimation()
-                self!.view.hideSkeleton()
-                
             }
         }
     }
     
     func fetchCastMembers(for movie: Movie){
-        MovieAPIController.fetchCastMembers(for: movie.id!) { (result) in
+        MovieAPIController.fetchCastMembers(for: movie.id!) { [weak self](result) in
             DispatchQueue.main.async {
-                
                 switch result{
                 case .success(let cast):
-                    self.castMembers = cast
-                    self.tableView.reloadData()
-                    
+                    self?.castMembers = cast
+                    self?.tableView.reloadData()
+                    self?.unFireSkeleton()
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
             }
-            
+      
         }
     }
 } // End of class
@@ -136,7 +135,9 @@ extension FilmDetailViewController: UITableViewDelegate, UITableViewDataSource{
         
         return castMembers.count
     }
-    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "actorCell"
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "actorCell", for: indexPath) as? VoiceActorTableViewCell else { return UITableViewCell()}
         

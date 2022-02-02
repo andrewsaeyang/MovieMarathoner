@@ -13,7 +13,6 @@ protocol ReloadCollectionDelegate: AnyObject{
 class FilmCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Outlets
-    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var filmImageView: UIImageView!
     
     // MARK: - PROPERTIES

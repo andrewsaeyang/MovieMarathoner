@@ -11,6 +11,7 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var textField: UITextField!
+    
     @IBOutlet weak var findMoviesButton: UIButton!
     
     // MARK: - Properties
@@ -23,9 +24,8 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         findMoviesButton.isUserInteractionEnabled = false
         findMoviesButton.alpha = 0.5
         
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dissmissedKeyboard)))
-        
-      
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
     }
 
     // MARK: - Actions

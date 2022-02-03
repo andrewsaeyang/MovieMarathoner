@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -160,158 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cLN-Vm-cvK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1793" y="-218"/>
-        </scene>
-        <!--News View Controller-->
-        <scene sceneID="2y6-aS-hWh">
-            <objects>
-                <viewController id="wqR-ti-Ot8" customClass="NewsViewController" customModule="Movie_Marathoner" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KLW-dR-sti">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XDk-q8-d6K">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsArticleCell" id="nFq-D8-AKN" customClass="NewsArticleTableViewCell" customModule="Movie_Marathoner" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="128.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nFq-D8-AKN" id="NtE-XW-wyS">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="128.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eGS-ie-JAz">
-                                                    <rect key="frame" x="16" y="14" width="382" height="100.5"/>
-                                                    <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wm5-tu-GX1">
-                                                            <rect key="frame" x="0.0" y="0.0" width="100.5" height="100.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="100" id="BCG-E2-ZbT"/>
-                                                                <constraint firstAttribute="width" secondItem="wm5-tu-GX1" secondAttribute="height" multiplier="1:1" id="cDx-zZ-Q9k"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
-                                                                    <real key="value" value="8"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Lda-km-wgd">
-                                                            <rect key="frame" x="108.5" y="0.0" width="273.5" height="100.5"/>
-                                                            <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="j7E-9Q-Jd8">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="273.5" height="14.5"/>
-                                                                    <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(provider)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OsF-dr-Utk">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="133" height="14.5"/>
-                                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                                                            <nil key="textColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
-                                                                                    <integer key="value" value="8"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
-                                                                        </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(date)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TF7-Hx-iTV">
-                                                                            <rect key="frame" x="141" y="0.0" width="132.5" height="14.5"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                            <nil key="textColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
-                                                                                    <integer key="value" value="8"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
-                                                                        </label>
-                                                                    </subviews>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </stackView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(article title)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Y9I-4p-jjq">
-                                                                    <rect key="frame" x="0.0" y="16.5" width="273.5" height="19.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
-                                                                            <integer key="value" value="8"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="(synopsis?)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMn-Rq-m6k">
-                                                                    <rect key="frame" x="0.0" y="38" width="273.5" height="62.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                    <color key="textColor" red="0.63622057440000002" green="0.63631689550000003" blue="0.63620740180000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
-                                                                            <integer key="value" value="8"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </label>
-                                                            </subviews>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </stackView>
-                                                    </subviews>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="eGS-ie-JAz" secondAttribute="trailing" constant="16" id="pQL-Mc-3v1"/>
-                                                <constraint firstAttribute="bottom" secondItem="eGS-ie-JAz" secondAttribute="bottom" constant="14" id="uKq-m5-dE0"/>
-                                                <constraint firstItem="eGS-ie-JAz" firstAttribute="top" secondItem="NtE-XW-wyS" secondAttribute="top" constant="14" id="uNe-V9-f7S"/>
-                                                <constraint firstItem="eGS-ie-JAz" firstAttribute="leading" secondItem="NtE-XW-wyS" secondAttribute="leading" constant="16" id="xEX-CV-ACS"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </tableViewCellContentView>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="articleImage" destination="wm5-tu-GX1" id="ZfM-1d-rDq"/>
-                                            <outlet property="articleTitle" destination="Y9I-4p-jjq" id="p8y-RI-ho3"/>
-                                            <outlet property="dateLabel" destination="TF7-Hx-iTV" id="VhR-0U-OkS"/>
-                                            <outlet property="providerLabel" destination="OsF-dr-Utk" id="2Lb-Ch-71q"/>
-                                            <outlet property="synopsisLabel" destination="hMn-Rq-m6k" id="Yxc-ZZ-Z6P"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="S5s-au-XrD"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="XDk-q8-d6K" firstAttribute="top" secondItem="S5s-au-XrD" secondAttribute="top" id="4XB-PN-TAT"/>
-                            <constraint firstItem="S5s-au-XrD" firstAttribute="bottom" secondItem="XDk-q8-d6K" secondAttribute="bottom" id="PCC-Qn-bSc"/>
-                            <constraint firstItem="S5s-au-XrD" firstAttribute="trailing" secondItem="XDk-q8-d6K" secondAttribute="trailing" id="UTy-za-qc8"/>
-                            <constraint firstItem="XDk-q8-d6K" firstAttribute="leading" secondItem="S5s-au-XrD" secondAttribute="leading" id="a1P-oN-PzW"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <navigationItem key="navigationItem" id="jh2-5s-glN"/>
-                    <connections>
-                        <outlet property="tableView" destination="XDk-q8-d6K" id="fGN-wL-fZQ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OEE-8F-NOZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-432" y="303"/>
+            <point key="canvasLocation" x="30" y="100"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="WBk-6F-5J7">
@@ -349,7 +197,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PgX-LF-PyJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="578" y="-40"/>
+            <point key="canvasLocation" x="-874" y="100"/>
         </scene>
         <!--News-->
         <scene sceneID="96Q-ow-wNi">
@@ -363,29 +211,114 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="wqR-ti-Ot8" kind="relationship" relationship="rootViewController" id="yLS-ew-08Y"/>
+                        <segue destination="oVO-ws-WTr" kind="relationship" relationship="rootViewController" id="Jio-HP-wX8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3hc-1X-nxm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1294" y="304"/>
+            <point key="canvasLocation" x="-1367" y="842"/>
         </scene>
-        <!--Film Detail View Controller-->
+        <!--Marathon List View Controller-->
+        <scene sceneID="23k-Vi-3DZ">
+            <objects>
+                <viewController id="oVO-ws-WTr" customClass="MarathonListViewController" customModule="Movie_Marathoner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l0W-60-r9S">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TXB-Ob-WAJ">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="marathonListCell" id="g4M-TF-EId">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g4M-TF-EId" id="xsU-v6-VKk">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="bax-G8-8kZ" kind="show" id="oQB-4z-i1z"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9I4-Xt-sYD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9I4-Xt-sYD" firstAttribute="bottom" secondItem="TXB-Ob-WAJ" secondAttribute="bottom" id="1lL-fb-Mvl"/>
+                            <constraint firstItem="9I4-Xt-sYD" firstAttribute="trailing" secondItem="TXB-Ob-WAJ" secondAttribute="trailing" id="h8m-f7-lBe"/>
+                            <constraint firstItem="TXB-Ob-WAJ" firstAttribute="top" secondItem="9I4-Xt-sYD" secondAttribute="top" id="mKr-ev-gbc"/>
+                            <constraint firstItem="TXB-Ob-WAJ" firstAttribute="leading" secondItem="9I4-Xt-sYD" secondAttribute="leading" id="oRI-30-poa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="J8i-f9-FsG"/>
+                    <connections>
+                        <outlet property="tableView" destination="TXB-Ob-WAJ" id="S9Y-hw-s35"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0xv-QU-dTS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-535" y="842"/>
+        </scene>
+        <!--Watch List View Controller-->
+        <scene sceneID="cyb-vd-xi0">
+            <objects>
+                <viewController id="bax-G8-8kZ" customClass="WatchListViewController" customModule="Movie_Marathoner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bql-gZ-o0e">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="55H-OK-lXF">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="watchListCell" id="beS-3Q-gN6">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="beS-3Q-gN6" id="mex-0c-MDs">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Zm0-le-9hR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="55H-OK-lXF" firstAttribute="top" secondItem="Zm0-le-9hR" secondAttribute="top" id="4fY-1e-BzA"/>
+                            <constraint firstItem="Zm0-le-9hR" firstAttribute="bottom" secondItem="55H-OK-lXF" secondAttribute="bottom" id="LQH-6a-m2y"/>
+                            <constraint firstItem="55H-OK-lXF" firstAttribute="leading" secondItem="Zm0-le-9hR" secondAttribute="leading" id="vSg-yr-2G1"/>
+                            <constraint firstItem="Zm0-le-9hR" firstAttribute="trailing" secondItem="55H-OK-lXF" secondAttribute="trailing" id="woy-Uc-fjP"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="dPb-VT-1c4"/>
+                    <connections>
+                        <outlet property="tableView" destination="55H-OK-lXF" id="apX-cu-Agd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EbV-wa-I46" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="270" y="843"/>
+        </scene>
+        <!--Movie Detail View Controller-->
         <scene sceneID="CA9-uK-ex8">
             <objects>
-                <viewController id="Xd9-qc-Fe8" customClass="FilmDetailViewController" customModule="Movie_Marathoner" sceneMemberID="viewController">
+                <viewController id="Xd9-qc-Fe8" customClass="MovieDetailViewController" customModule="Movie_Marathoner" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2od-6c-alL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5V-Ab-Lo9">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDP-F3-d6S" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="699"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rzy-Jm-GXP">
-                                                <rect key="frame" x="0.0" y="574" width="414" height="125"/>
+                                                <rect key="frame" x="0.0" y="600" width="414" height="125"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="125" id="gKR-k6-kCU"/>
@@ -448,7 +381,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5q5-nA-cFg">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="574"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L3Y-wr-D4d">
                                                 <rect key="frame" x="107" y="8" width="200" height="300"/>
@@ -514,7 +447,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="(synopsis)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpZ-Dg-JIN">
-                                                <rect key="frame" x="25" y="402" width="364" height="100"/>
+                                                <rect key="frame" x="25" y="402" width="364" height="126"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Mcy-cR-gc1"/>
                                                 </constraints>
@@ -532,7 +465,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Voice Actors" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jto-cQ-cOO">
-                                                <rect key="frame" x="25" y="534" width="364" height="24"/>
+                                                <rect key="frame" x="25" y="560" width="364" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -601,7 +534,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25u-8k-Sqf" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2665" y="-218"/>
+            <point key="canvasLocation" x="1719" y="-111"/>
         </scene>
         <!--Home-->
         <scene sceneID="SXa-CT-Hjc">
@@ -622,7 +555,7 @@
             </objects>
             <point key="canvasLocation" x="-1501" y="-686"/>
         </scene>
-        <!--recommendation-->
+        <!--Recommendation-->
         <scene sceneID="wSw-4q-twF">
             <objects>
                 <viewController id="lwc-2C-rX8" customClass="RecommendationViewController" customModule="Movie_Marathoner" customModuleProvider="target" sceneMemberID="viewController">
@@ -672,6 +605,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="filmImageView" destination="aaq-fT-7QY" id="bY2-XW-5ug"/>
+                                            <segue destination="Xd9-qc-Fe8" kind="show" identifier="toDetailVC2" id="lcu-bO-jFU"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -695,7 +629,9 @@
                             <constraint firstItem="uJU-OC-L4F" firstAttribute="bottom" secondItem="Atk-Ql-eNh" secondAttribute="bottom" id="fAQ-fc-1Mt"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="recommendation" id="Ayr-qE-Qsa"/>
+                    <navigationItem key="navigationItem" title="Recommendation" id="bPs-vX-igB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vTE-Kb-0EN"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Atk-Ql-eNh" id="g61-UB-3dZ"/>
                         <outlet property="runTimeLabel" destination="bKH-kB-pWJ" id="wMp-OT-vl0"/>
@@ -797,6 +733,9 @@
             <point key="canvasLocation" x="-10" y="-686"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lcu-bO-jFU"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="film" catalog="system" width="128" height="93"/>
         <image name="house" catalog="system" width="128" height="106"/>

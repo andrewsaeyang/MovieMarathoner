@@ -122,6 +122,20 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
     }
+    
+    
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailVC2"{
+            guard let cell = sender as? RecommendationCollectionViewCell,
+                  let indexPath = collectionView.indexPath(for: cell),
+                  let destination = segue.destination as? MovieDetailViewController else { return }
+            
+            let filmToSend = finalRecommendation[indexPath.row]
+            destination.movie = filmToSend
+        }
+    }
 }// End of class
 
 extension RecommendationViewController{

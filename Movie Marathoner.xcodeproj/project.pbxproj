@@ -12,13 +12,11 @@
 		493D91EE277156A800749681 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91ED277156A800749681 /* KeyConstants.swift */; };
 		493D91FB27715F1800749681 /* FilmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91FA27715F1800749681 /* FilmCollectionViewCell.swift */; };
 		493D91FD27715F2300749681 /* VoiceActorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91FC27715F2300749681 /* VoiceActorTableViewCell.swift */; };
-		493D91FF27715F2D00749681 /* NewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91FE27715F2D00749681 /* NewsArticleTableViewCell.swift */; };
-		493D920327715F9E00749681 /* FilmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D920227715F9E00749681 /* FilmDetailViewController.swift */; };
-		493D920527715FA400749681 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D920427715FA400749681 /* NewsViewController.swift */; };
+		493D920327715F9E00749681 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D920227715F9E00749681 /* MovieDetailViewController.swift */; };
 		493D920B2771605200749681 /* MovieAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D920A2771605200749681 /* MovieAPIController.swift */; };
-		493D920D2771605700749681 /* BingNewsAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D920C2771605700749681 /* BingNewsAPIController.swift */; };
-		493D9213277160F300749681 /* BingNewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D9212277160F300749681 /* BingNewsAPI.swift */; };
 		493D92152771610500749681 /* MovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D92142771610500749681 /* MovieAPI.swift */; };
+		49A4F5B027AB6D6700BCF90A /* MarathonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5AF27AB6D6700BCF90A /* MarathonListViewController.swift */; };
+		49A4F5B227AB6D7100BCF90A /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5B127AB6D7100BCF90A /* WatchListViewController.swift */; };
 		49F2657E275EE98F009B4808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2657D275EE98F009B4808 /* AppDelegate.swift */; };
 		49F26580275EE98F009B4808 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2657F275EE98F009B4808 /* SceneDelegate.swift */; };
 		49F26582275EE98F009B4808 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26581275EE98F009B4808 /* CatalogViewController.swift */; };
@@ -41,13 +39,11 @@
 		493D91ED277156A800749681 /* KeyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
 		493D91FA27715F1800749681 /* FilmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmCollectionViewCell.swift; sourceTree = "<group>"; };
 		493D91FC27715F2300749681 /* VoiceActorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActorTableViewCell.swift; sourceTree = "<group>"; };
-		493D91FE27715F2D00749681 /* NewsArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleTableViewCell.swift; sourceTree = "<group>"; };
-		493D920227715F9E00749681 /* FilmDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailViewController.swift; sourceTree = "<group>"; };
-		493D920427715FA400749681 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		493D920227715F9E00749681 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		493D920A2771605200749681 /* MovieAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIController.swift; sourceTree = "<group>"; };
-		493D920C2771605700749681 /* BingNewsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingNewsAPIController.swift; sourceTree = "<group>"; };
-		493D9212277160F300749681 /* BingNewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingNewsAPI.swift; sourceTree = "<group>"; };
 		493D92142771610500749681 /* MovieAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPI.swift; sourceTree = "<group>"; };
+		49A4F5AF27AB6D6700BCF90A /* MarathonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarathonListViewController.swift; sourceTree = "<group>"; };
+		49A4F5B127AB6D7100BCF90A /* WatchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewController.swift; sourceTree = "<group>"; };
 		49F2657A275EE98F009B4808 /* Movie Marathoner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Marathoner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F2657D275EE98F009B4808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49F2657F275EE98F009B4808 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				493D92142771610500749681 /* MovieAPI.swift */,
-				493D9212277160F300749681 /* BingNewsAPI.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -121,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				493D920A2771605200749681 /* MovieAPIController.swift */,
-				493D920C2771605700749681 /* BingNewsAPIController.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -133,8 +127,9 @@
 				49FB8201278E955A007820AF /* MovieSearchViewController.swift */,
 				49FB81FF278CFAC3007820AF /* RecommendationViewController.swift */,
 				49F26581275EE98F009B4808 /* CatalogViewController.swift */,
-				493D920227715F9E00749681 /* FilmDetailViewController.swift */,
-				493D920427715FA400749681 /* NewsViewController.swift */,
+				493D920227715F9E00749681 /* MovieDetailViewController.swift */,
+				49A4F5AF27AB6D6700BCF90A /* MarathonListViewController.swift */,
+				49A4F5B127AB6D7100BCF90A /* WatchListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -173,7 +168,6 @@
 			children = (
 				493D91FA27715F1800749681 /* FilmCollectionViewCell.swift */,
 				493D91FC27715F2300749681 /* VoiceActorTableViewCell.swift */,
-				493D91FE27715F2D00749681 /* NewsArticleTableViewCell.swift */,
 				49FB8203278E9732007820AF /* MovieSearchTableViewCell.swift */,
 				49FB82052790F707007820AF /* RecommendationCollectionViewCell.swift */,
 			);
@@ -336,23 +330,21 @@
 			files = (
 				49FB81FE278CFAAD007820AF /* MarathonModeViewController.swift in Sources */,
 				49FB82062790F707007820AF /* RecommendationCollectionViewCell.swift in Sources */,
+				49A4F5B027AB6D6700BCF90A /* MarathonListViewController.swift in Sources */,
 				49FB8204278E9732007820AF /* MovieSearchTableViewCell.swift in Sources */,
 				493D91EC2771569200749681 /* FavoriteError.swift in Sources */,
-				493D920327715F9E00749681 /* FilmDetailViewController.swift in Sources */,
+				493D920327715F9E00749681 /* MovieDetailViewController.swift in Sources */,
 				49F26582275EE98F009B4808 /* CatalogViewController.swift in Sources */,
-				493D920D2771605700749681 /* BingNewsAPIController.swift in Sources */,
-				493D920527715FA400749681 /* NewsViewController.swift in Sources */,
 				493D91EA2771567D00749681 /* NetworkError.swift in Sources */,
 				493D920B2771605200749681 /* MovieAPIController.swift in Sources */,
-				493D9213277160F300749681 /* BingNewsAPI.swift in Sources */,
 				493D91FD27715F2300749681 /* VoiceActorTableViewCell.swift in Sources */,
-				493D91FF27715F2D00749681 /* NewsArticleTableViewCell.swift in Sources */,
 				493D92152771610500749681 /* MovieAPI.swift in Sources */,
 				49F2657E275EE98F009B4808 /* AppDelegate.swift in Sources */,
 				493D91FB27715F1800749681 /* FilmCollectionViewCell.swift in Sources */,
 				49F26580275EE98F009B4808 /* SceneDelegate.swift in Sources */,
 				493D91EE277156A800749681 /* KeyConstants.swift in Sources */,
 				49FB8200278CFAC3007820AF /* RecommendationViewController.swift in Sources */,
+				49A4F5B227AB6D7100BCF90A /* WatchListViewController.swift in Sources */,
 				49FB8202278E955A007820AF /* MovieSearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

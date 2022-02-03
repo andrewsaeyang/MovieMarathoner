@@ -82,7 +82,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filmCell", for: indexPath) as? FilmCollectionViewCell else { return UICollectionViewCell()}
         
         cell.movie = filteredMovies[indexPath.row]
-        cell.delegate = self
         return cell
     }
     
@@ -91,7 +90,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         if segue.identifier == "toDetailVC" {
             guard let cell = sender as? FilmCollectionViewCell,
                   let indexPath = collectionView.indexPath(for: cell),
-                  let destination = segue.destination as? FilmDetailViewController else { return }
+                  let destination = segue.destination as? MovieDetailViewController else { return }
             
             let filmToSend = filteredMovies[indexPath.row]
             
@@ -166,7 +165,6 @@ extension CatalogViewController: UISearchBarDelegate{
             })
         }
     
-
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filteredMovies = movies
         collectionView.reloadData()
@@ -174,10 +172,3 @@ extension CatalogViewController: UISearchBarDelegate{
         searchBar.resignFirstResponder()
     }
 } //End of extension
-
-// MARK: - Reload Collection Delegate
-extension CatalogViewController: ReloadCollectionDelegate{
-    func updateCollectionView() {
-        collectionView.reloadData()
-    }
-} // End of Extension

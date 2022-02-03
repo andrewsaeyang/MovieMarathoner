@@ -8,7 +8,7 @@
 import UIKit
 import SkeletonView
 
-class FilmDetailViewController: UIViewController, SkeletonTableViewDataSource {
+class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
     
     // MARK: - Outlets
     @IBOutlet weak var filmImageView: UIImageView!
@@ -130,7 +130,7 @@ class FilmDetailViewController: UIViewController, SkeletonTableViewDataSource {
     }
 } // End of class
 
-extension FilmDetailViewController: UITableViewDelegate, UITableViewDataSource{
+extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return castMembers.count

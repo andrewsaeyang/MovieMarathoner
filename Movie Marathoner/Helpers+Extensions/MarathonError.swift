@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FavoriteError: LocalizedError {
+enum MarathonError: LocalizedError {
     case cKerror(Error)
     case couldNotUnwrap
     var errorDescription: String?{
@@ -16,7 +16,7 @@ enum FavoriteError: LocalizedError {
             return error.localizedDescription
             
         case .couldNotUnwrap:
-            return "could not unwrap Favorite information"
+            return "could not unwrap Marathon information"
         }
     }
 }//End of enum

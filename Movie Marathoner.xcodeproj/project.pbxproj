@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		493D34E927B761AD00E1886D /* MovieID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D34E827B761AD00E1886D /* MovieID.swift */; };
 		493D91EA2771567D00749681 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91E92771567D00749681 /* NetworkError.swift */; };
-		493D91EC2771569200749681 /* FavoriteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91EB2771569200749681 /* FavoriteError.swift */; };
+		493D91EC2771569200749681 /* MarathonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91EB2771569200749681 /* MarathonError.swift */; };
 		493D91EE277156A800749681 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91ED277156A800749681 /* KeyConstants.swift */; };
 		493D91FB27715F1800749681 /* FilmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91FA27715F1800749681 /* FilmCollectionViewCell.swift */; };
 		493D91FD27715F2300749681 /* VoiceActorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91FC27715F2300749681 /* VoiceActorTableViewCell.swift */; };
@@ -17,6 +18,10 @@
 		493D92152771610500749681 /* MovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D92142771610500749681 /* MovieAPI.swift */; };
 		49A4F5B027AB6D6700BCF90A /* MarathonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5AF27AB6D6700BCF90A /* MarathonListViewController.swift */; };
 		49A4F5B227AB6D7100BCF90A /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5B127AB6D7100BCF90A /* WatchListViewController.swift */; };
+		49A4F5B427B48DA700BCF90A /* Marathon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5B327B48DA700BCF90A /* Marathon.swift */; };
+		49A4F5B627B48DBF00BCF90A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5B527B48DBF00BCF90A /* Movie.swift */; };
+		49A4F5B827B48E1E00BCF90A /* Cast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5B727B48E1E00BCF90A /* Cast.swift */; };
+		49A4F5BA27B49BBD00BCF90A /* MarathonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F5B927B49BBD00BCF90A /* MarathonController.swift */; };
 		49F2657E275EE98F009B4808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2657D275EE98F009B4808 /* AppDelegate.swift */; };
 		49F26580275EE98F009B4808 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2657F275EE98F009B4808 /* SceneDelegate.swift */; };
 		49F26582275EE98F009B4808 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26581275EE98F009B4808 /* CatalogViewController.swift */; };
@@ -34,8 +39,9 @@
 
 /* Begin PBXFileReference section */
 		29E0C653B6DB312A42C0FA69 /* Pods-Movie Marathoner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie Marathoner.debug.xcconfig"; path = "Target Support Files/Pods-Movie Marathoner/Pods-Movie Marathoner.debug.xcconfig"; sourceTree = "<group>"; };
+		493D34E827B761AD00E1886D /* MovieID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieID.swift; sourceTree = "<group>"; };
 		493D91E92771567D00749681 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		493D91EB2771569200749681 /* FavoriteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteError.swift; sourceTree = "<group>"; };
+		493D91EB2771569200749681 /* MarathonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarathonError.swift; sourceTree = "<group>"; };
 		493D91ED277156A800749681 /* KeyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
 		493D91FA27715F1800749681 /* FilmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmCollectionViewCell.swift; sourceTree = "<group>"; };
 		493D91FC27715F2300749681 /* VoiceActorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActorTableViewCell.swift; sourceTree = "<group>"; };
@@ -44,6 +50,10 @@
 		493D92142771610500749681 /* MovieAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPI.swift; sourceTree = "<group>"; };
 		49A4F5AF27AB6D6700BCF90A /* MarathonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarathonListViewController.swift; sourceTree = "<group>"; };
 		49A4F5B127AB6D7100BCF90A /* WatchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewController.swift; sourceTree = "<group>"; };
+		49A4F5B327B48DA700BCF90A /* Marathon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marathon.swift; sourceTree = "<group>"; };
+		49A4F5B527B48DBF00BCF90A /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		49A4F5B727B48E1E00BCF90A /* Cast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cast.swift; sourceTree = "<group>"; };
+		49A4F5B927B49BBD00BCF90A /* MarathonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarathonController.swift; sourceTree = "<group>"; };
 		49F2657A275EE98F009B4808 /* Movie Marathoner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Marathoner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F2657D275EE98F009B4808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49F2657F275EE98F009B4808 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				493D91E92771567D00749681 /* NetworkError.swift */,
-				493D91EB2771569200749681 /* FavoriteError.swift */,
+				493D91EB2771569200749681 /* MarathonError.swift */,
 				493D91ED277156A800749681 /* KeyConstants.swift */,
 			);
 			path = "Helpers+Extensions";
@@ -99,6 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				493D92142771610500749681 /* MovieAPI.swift */,
+				49A4F5B327B48DA700BCF90A /* Marathon.swift */,
+				49A4F5B527B48DBF00BCF90A /* Movie.swift */,
+				49A4F5B727B48E1E00BCF90A /* Cast.swift */,
+				493D34E827B761AD00E1886D /* MovieID.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -116,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				493D920A2771605200749681 /* MovieAPIController.swift */,
+				49A4F5B927B49BBD00BCF90A /* MarathonController.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -332,7 +347,8 @@
 				49FB82062790F707007820AF /* RecommendationCollectionViewCell.swift in Sources */,
 				49A4F5B027AB6D6700BCF90A /* MarathonListViewController.swift in Sources */,
 				49FB8204278E9732007820AF /* MovieSearchTableViewCell.swift in Sources */,
-				493D91EC2771569200749681 /* FavoriteError.swift in Sources */,
+				493D91EC2771569200749681 /* MarathonError.swift in Sources */,
+				49A4F5BA27B49BBD00BCF90A /* MarathonController.swift in Sources */,
 				493D920327715F9E00749681 /* MovieDetailViewController.swift in Sources */,
 				49F26582275EE98F009B4808 /* CatalogViewController.swift in Sources */,
 				493D91EA2771567D00749681 /* NetworkError.swift in Sources */,
@@ -342,7 +358,11 @@
 				49F2657E275EE98F009B4808 /* AppDelegate.swift in Sources */,
 				493D91FB27715F1800749681 /* FilmCollectionViewCell.swift in Sources */,
 				49F26580275EE98F009B4808 /* SceneDelegate.swift in Sources */,
+				49A4F5B627B48DBF00BCF90A /* Movie.swift in Sources */,
 				493D91EE277156A800749681 /* KeyConstants.swift in Sources */,
+				493D34E927B761AD00E1886D /* MovieID.swift in Sources */,
+				49A4F5B827B48E1E00BCF90A /* Cast.swift in Sources */,
+				49A4F5B427B48DA700BCF90A /* Marathon.swift in Sources */,
 				49FB8200278CFAC3007820AF /* RecommendationViewController.swift in Sources */,
 				49A4F5B227AB6D7100BCF90A /* WatchListViewController.swift in Sources */,
 				49FB8202278E955A007820AF /* MovieSearchViewController.swift in Sources */,

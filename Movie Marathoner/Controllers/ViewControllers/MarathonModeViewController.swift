@@ -27,7 +27,7 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }
-
+    
     // MARK: - Actions
     
     @IBAction func findMoviesButtonTapped(_ sender: Any) {

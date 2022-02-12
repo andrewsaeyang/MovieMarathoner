@@ -31,7 +31,7 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-    
+        
         filmImageView.contentMode = .scaleAspectFill
         filmImageView.layer.cornerRadius = 8
         
@@ -72,7 +72,7 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
         
         fetchPoster(for: movie)
         fetchCastMembers(for: movie)
-    
+        
     }
     
     func fireSkeleton(){
@@ -105,7 +105,7 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
                     self?.view.contentMode = .scaleAspectFill
                     
                     self?.filmImageView.image = image
-                   
+                    
                 case .failure(let error):
                     print("Error IMAGE in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
@@ -125,7 +125,7 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
             }
-      
+            
         }
     }
 } // End of class

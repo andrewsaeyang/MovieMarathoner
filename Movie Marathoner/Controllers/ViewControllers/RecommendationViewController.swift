@@ -27,6 +27,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     private var movieRecommendations: [Movie] = []
     private var finalRecommendation: [Movie] = []
     
+    
     private let cellID = "reccomendationCell"
     
     // MARK: - Lifecycle
@@ -39,7 +40,61 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
         
     }
     
+    // MARK: - Actions
+    
+    @IBAction func newMarathonButtonTapped(_ sender: Any) {
+        
+        presentAddNewMarathonAlertController()
+    }
+    
+    
     // MARK: - Helper Methods
+    
+    func presentAddNewMarathonAlertController(){
+        let alertController = UIAlertController(title: "What do you want to name your new Marathon?", message: "", preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Marathon name"
+            textField.autocorrectionType = .yes
+            textField.autocapitalizationType = .sentences
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { alert in
+            print("Canceled completed")
+        }
+        
+        let addAction = UIAlertAction(title: "Submit", style: .default) { (_) in
+            print("Submitted completed")
+            
+            guard let nameText = alertController.textFields?.first?.text, !nameText.isEmpty else { return }
+            
+            
+            // TODO: This is where we turn reccomendations into ckReferences
+            
+            MarathonController.shared.createMarathon(with: self.getMovieID(with: self.finalRecommendation), name: nameText) { (result) in
+                switch result{
+                    
+                case .success(let finish):
+                    print(finish)
+                case .failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                }
+            }
+            
+            
+            
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(addAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    
     func updateView(){
         guard let movie = movie else { return }
         if let movieID = movie.id{
@@ -48,6 +103,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     //First Function
+    ///Fetches Recommendation from the API base on a movieID
     func fetchRecommendations(with movieID: String){
         MovieAPIController.fetchRecommendations(with: movieID) { [weak self]result in
             
@@ -64,7 +120,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     //second Function
-    
+    ///Shuffles the list of movies
     func translateData(with movieData: [Movie]){
         MovieAPIController.translateData(with: movieData) { result in
             self.movieRecommendations = result
@@ -72,7 +128,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             self.configureRecommendation()
         }
     }
-
+    ///Takes the entire list and gives the number of movies based on the marathon time
     func configureRecommendation(){
         marathonTime = marathonTime * 60
         
@@ -94,6 +150,15 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.reloadData()
     }
     
+    ///turns an array of movies into array of String with movieIDs
+    func getMovieID(with movies: [Movie]) -> [String]{
+        var retVal: [String] = []
+        for movie in movies{
+            retVal.append("\(String(describing: movie.id))")
+        }
+        return retVal
+    }
+    
     func countRunTime(for marathon: [Movie]) -> Int {
         var retVal = 0
         
@@ -106,7 +171,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func printRunTime() -> String{
-       
+        
         let minuites = finalRunTime%60
         let hours = finalRunTime/60
         

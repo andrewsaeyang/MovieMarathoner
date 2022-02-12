@@ -34,15 +34,15 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.title = "Catalog"
         
         collectionView.keyboardDismissMode = .onDrag
-//        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-//        tap.cancelsTouchesInView = false
-//        view.addGestureRecognizer(tap)
+        //        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        //        tap.cancelsTouchesInView = false
+        //        view.addGestureRecognizer(tap)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         //        if filteredMovies.isEmpty{
         //
         //            collectionView.isSkeletonable = true
@@ -144,26 +144,26 @@ extension CatalogViewController: SkeletonCollectionViewDataSource{
 
 // MARK: - Search Bar Delegate Methods
 extension CatalogViewController: UISearchBarDelegate{
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    
-            self.filteredMovies = movies
-    
-            guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
-                self.collectionView.reloadData()
-                return
-            }
-            //skeletonOn()
-            debouncedSearch?.invalidate()
-    
-            debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
-    
-                self.fetchMovies(with: searchTerm)
-    
-                self.collectionView.reloadData()
-                //self.skeletonOff()
-    
-            })
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.filteredMovies = movies
+        
+        guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
+            self.collectionView.reloadData()
+            return
         }
+        //skeletonOn()
+        debouncedSearch?.invalidate()
+        
+        debouncedSearch = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+            
+            self.fetchMovies(with: searchTerm)
+            
+            self.collectionView.reloadData()
+            //self.skeletonOff()
+            
+        })
+    }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filteredMovies = movies

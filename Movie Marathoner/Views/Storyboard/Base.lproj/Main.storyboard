@@ -218,7 +218,7 @@
             </objects>
             <point key="canvasLocation" x="-1367" y="842"/>
         </scene>
-        <!--Marathon List View Controller-->
+        <!--Marathons-->
         <scene sceneID="23k-Vi-3DZ">
             <objects>
                 <viewController id="oVO-ws-WTr" customClass="MarathonListViewController" customModule="Movie_Marathoner" customModuleProvider="target" sceneMemberID="viewController">
@@ -230,12 +230,21 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="marathonListCell" id="g4M-TF-EId">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="marathonListCell" textLabel="OK4-ie-d2t" style="IBUITableViewCellStyleDefault" id="g4M-TF-EId">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g4M-TF-EId" id="xsU-v6-VKk">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="(marathonName)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OK4-ie-d2t">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="bax-G8-8kZ" kind="show" id="oQB-4z-i1z"/>
@@ -253,7 +262,13 @@
                             <constraint firstItem="TXB-Ob-WAJ" firstAttribute="leading" secondItem="9I4-Xt-sYD" secondAttribute="leading" id="oRI-30-poa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="J8i-f9-FsG"/>
+                    <navigationItem key="navigationItem" title="Marathons" id="J8i-f9-FsG">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="compose" id="WNp-7b-pgg">
+                            <connections>
+                                <action selector="newMarathonButtonTapped:" destination="oVO-ws-WTr" id="VPu-8i-het"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="TXB-Ob-WAJ" id="S9Y-hw-s35"/>
                     </connections>
@@ -274,12 +289,21 @@
                                 <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="watchListCell" id="beS-3Q-gN6">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="watchListCell" textLabel="UM5-l5-efT" style="IBUITableViewCellStyleDefault" id="beS-3Q-gN6">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="beS-3Q-gN6" id="mex-0c-MDs">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="(movie)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UM5-l5-efT">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -630,7 +654,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Recommendation" id="bPs-vX-igB">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vTE-Kb-0EN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vTE-Kb-0EN">
+                            <connections>
+                                <action selector="newMarathonButtonTapped:" destination="lwc-2C-rX8" id="0Co-FU-LaG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Atk-Ql-eNh" id="g61-UB-3dZ"/>

@@ -39,8 +39,6 @@ class MovieSearchViewController: UIViewController, UICollectionViewDelegate, UIC
         self.title = "Catalog"
         
         collectionView.keyboardDismissMode = .onDrag
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

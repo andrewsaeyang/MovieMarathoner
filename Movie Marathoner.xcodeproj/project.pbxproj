@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		491F070027BF7DD0001DDEBA /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F06FF27BF7DD0001DDEBA /* StringExtension.swift */; };
 		493D34E927B761AD00E1886D /* MovieID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D34E827B761AD00E1886D /* MovieID.swift */; };
+		493D34EB27BB550000E1886D /* MarathonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D34EA27BB550000E1886D /* MarathonTableViewCell.swift */; };
 		493D91EA2771567D00749681 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91E92771567D00749681 /* NetworkError.swift */; };
 		493D91EC2771569200749681 /* MarathonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91EB2771569200749681 /* MarathonError.swift */; };
 		493D91EE277156A800749681 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D91ED277156A800749681 /* KeyConstants.swift */; };
@@ -39,7 +41,9 @@
 
 /* Begin PBXFileReference section */
 		29E0C653B6DB312A42C0FA69 /* Pods-Movie Marathoner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie Marathoner.debug.xcconfig"; path = "Target Support Files/Pods-Movie Marathoner/Pods-Movie Marathoner.debug.xcconfig"; sourceTree = "<group>"; };
+		491F06FF27BF7DD0001DDEBA /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		493D34E827B761AD00E1886D /* MovieID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieID.swift; sourceTree = "<group>"; };
+		493D34EA27BB550000E1886D /* MarathonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarathonTableViewCell.swift; sourceTree = "<group>"; };
 		493D91E92771567D00749681 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		493D91EB2771569200749681 /* MarathonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarathonError.swift; sourceTree = "<group>"; };
 		493D91ED277156A800749681 /* KeyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 				493D91E92771567D00749681 /* NetworkError.swift */,
 				493D91EB2771569200749681 /* MarathonError.swift */,
 				493D91ED277156A800749681 /* KeyConstants.swift */,
+				491F06FF27BF7DD0001DDEBA /* StringExtension.swift */,
 			);
 			path = "Helpers+Extensions";
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				493D91FC27715F2300749681 /* VoiceActorTableViewCell.swift */,
 				49FB8203278E9732007820AF /* MovieSearchTableViewCell.swift */,
 				49FB82052790F707007820AF /* RecommendationCollectionViewCell.swift */,
+				493D34EA27BB550000E1886D /* MarathonTableViewCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -343,9 +349,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				491F070027BF7DD0001DDEBA /* StringExtension.swift in Sources */,
 				49FB81FE278CFAAD007820AF /* MarathonModeViewController.swift in Sources */,
 				49FB82062790F707007820AF /* RecommendationCollectionViewCell.swift in Sources */,
 				49A4F5B027AB6D6700BCF90A /* MarathonListViewController.swift in Sources */,
+				493D34EB27BB550000E1886D /* MarathonTableViewCell.swift in Sources */,
 				49FB8204278E9732007820AF /* MovieSearchTableViewCell.swift in Sources */,
 				493D91EC2771569200749681 /* MarathonError.swift in Sources */,
 				49A4F5BA27B49BBD00BCF90A /* MarathonController.swift in Sources */,

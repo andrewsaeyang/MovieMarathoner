@@ -28,7 +28,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     private var finalRecommendation: [Movie] = []
     
     
-    private let cellID = "reccomendationCell"
+    private let cellID = "reccomendationCell" // TODO: MISSPELLED "recommendation"
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -71,7 +71,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             
             // TODO: This is where we turn reccomendations into ckReferences
             
-            MarathonController.shared.createMarathon(with: self.getMovieID(with: self.finalRecommendation), name: nameText) { (result) in
+            MarathonController.shared.createMarathonFromRecommendation(with: self.getMovieID(with: self.finalRecommendation), name: nameText) { (result) in
                 switch result{
                     
                 case .success(let finish):
@@ -92,9 +92,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
         
     }
     
-    
-    
-    
+   
     func updateView(){
         guard let movie = movie else { return }
         if let movieID = movie.id{

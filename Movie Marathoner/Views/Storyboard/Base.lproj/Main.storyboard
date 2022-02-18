@@ -199,11 +199,11 @@
             </objects>
             <point key="canvasLocation" x="-874" y="100"/>
         </scene>
-        <!--News-->
+        <!--Marathons-->
         <scene sceneID="96Q-ow-wNi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eKO-EO-PKX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News" image="newspaper" catalog="system" id="wWa-xr-huD"/>
+                    <tabBarItem key="tabBarItem" title="Marathons" image="newspaper" catalog="system" id="wWa-xr-huD"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ppm-A9-1ki">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>

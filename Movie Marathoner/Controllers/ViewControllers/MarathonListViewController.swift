@@ -9,8 +9,6 @@ import UIKit
 
 class MarathonListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    
     // MARK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,27 +18,19 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     
     var marathons: [Marathon] = []
     
-    let firstMovie = Movie(originalTitle: "First Movie", posterPath: (URL.init(string: "/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg")), overview: "This is the first movie", rating: 6.6, id: 123, runtime: 120, releaseDate: "1977-05-25")
-    let secondMovie = Movie(originalTitle: "Second Movie", posterPath: (URL.init(string: "/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg")), overview: "This is the first movie", rating: 6.6, id: 123, runtime: 120, releaseDate: "1977-05-25")
-    
-    let test1 = Marathon(movies:["MovieOne", "MovieTwo", "MovieThree"], name: "First Marathon")
-
-    
-    
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+        updateView()
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        updateView()
-        
-        
+ 
     }
     
     // MARK: - Actions
@@ -57,13 +47,13 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         var content = cell.defaultContentConfiguration()
-        
         content.text = MarathonController.shared.marathons[indexPath.row].name
-        
+     
+        cell.contentConfiguration = content
         return UITableViewCell()// TODO: MAKE A CELL
     }
     
-    /*
+
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -71,7 +61,7 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
      // Get the new view controller using segue.destination.
      // Pass the selected object to the new view controller.
      }
-     */
+    
     
     // MARK: - Helper Methods
     func presentAddNewMarathonAlertController(){
@@ -92,7 +82,7 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         
             guard let nameText = alertController.textFields?.first?.text, !nameText.isEmpty else { return }
            
-            self.createMarathon(with: self.test1.movies, name: nameText)
+            self.createMarathon(name: nameText)
             
             self.tableView.reloadData()
                   
@@ -106,11 +96,12 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func updateView(){
-        //fetchMarathons()
+        fetchMarathons()
+        
     }
     
-    func createMarathon(with movies: [String], name: String){
-        MarathonController.shared.createMarathon(with: movies, name: name) { (result) in
+    func createMarathon(name: String){
+        MarathonController.shared.createMarathon(with: name) { (result) in
             switch result{
             case .success(let p):
                 print(p)
@@ -121,14 +112,19 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     func fetchMarathons(){
-        MarathonController.shared.fetchAllMarathons { [weak self](result) in
-            switch result{
+        MarathonController.shared.fetchMarathons{ [weak self](result) in
+            
+            DispatchQueue.main.async {
                 
-            case .success(let p):
-                print(p)
-                self?.tableView.reloadData()
-            case .failure(let error):
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                switch result{
+                    
+                case .success(let p):
+                    print(p)
+                    self?.tableView.reloadData()
+                case .failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                }
+                
             }
         }
     }

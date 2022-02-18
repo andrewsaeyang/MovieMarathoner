@@ -50,17 +50,31 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         
         return cell
     }
- 
-     // MARK: - Navigation
-     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     
-     }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
     
     
     // MARK: - Helper Functions
     
     func updateView(){
-        
+        for id in movieIDs{
+            
+            MovieAPIController.fetchMovie(with: id) { result in
+                DispatchQueue.main.async {
+                    
+                    switch result{
+                        
+                    case .success(let movie):
+                        print(movie)
+                    case .failure(let error):
+                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    }
+                }
+            }
+        }
     }
-}
+}// End of class

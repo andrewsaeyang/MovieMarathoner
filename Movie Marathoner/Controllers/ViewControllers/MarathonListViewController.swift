@@ -154,9 +154,6 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
                     }
                 }
             }
-            
         }
-        
     }
-    
-}
+}// End of class

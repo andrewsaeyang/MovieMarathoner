@@ -69,11 +69,13 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             guard let nameText = alertController.textFields?.first?.text, !nameText.isEmpty else { return }
             
             
-            // TODO: This is where we turn reccomendations into ckReferences
+        
             
-            MarathonController.shared.createMarathonFromRecommendation(with: self.getMovieID(with: self.finalRecommendation), name: nameText) { (result) in
+            let list = self.getMovieID(with: self.finalRecommendation).compactMap{ $0 }
+            
+            
+            MarathonController.shared.createMarathonFromRecommendation(with: list, name: nameText) { (result) in
                 switch result{
-                    
                 case .success(let finish):
                     print(finish)
                 case .failure(let error):
@@ -152,7 +154,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     func getMovieID(with movies: [Movie]) -> [String]{
         var retVal: [String] = []
         for movie in movies{
-            retVal.append("\(String(describing: movie.id))")
+            retVal.append("\(movie.id ?? -1)")// TODO: BUG! FIX THIS!
         }
         return retVal
     }

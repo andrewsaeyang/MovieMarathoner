@@ -14,7 +14,9 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
+    
     private let cellID = "marathonListCell"
+    private let segueID = "toMovieList"
     
     var marathons: [Marathon] = []
     
@@ -30,7 +32,7 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
- 
+        
     }
     
     // MARK: - Actions
@@ -44,24 +46,35 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MarathonController.shared.marathons.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         var content = cell.defaultContentConfiguration()
         content.text = MarathonController.shared.marathons[indexPath.row].name
-     
+        content.secondaryText = "\(MarathonController.shared.marathons[indexPath.row].movieIDs.count) movies"
+        
         cell.contentConfiguration = content
-        return UITableViewCell()// TODO: MAKE A CELL
+        return cell// TODO: MAKE A CELL
     }
     
-
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: segueID, sender: self)
+    }
     
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == segueID{
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let destination = segue.destination as? WatchListViewController else { return }
+            
+            
+            let moviesToSend = MarathonController.shared.marathons[indexPath.row].movieIDs
+            
+            destination.movieIDs = moviesToSend
+        }
+    }
     
     // MARK: - Helper Methods
     func presentAddNewMarathonAlertController(){
@@ -79,13 +92,13 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         
         let addAction = UIAlertAction(title: "Submit", style: .default) { (_) in
             print("Submitted completed")
-        
+            
             guard let nameText = alertController.textFields?.first?.text, !nameText.isEmpty else { return }
-           
+            
             self.createMarathon(name: nameText)
             
             self.tableView.reloadData()
-                  
+            
         }
         
         alertController.addAction(cancelAction)
@@ -111,22 +124,39 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
     }
+    
     func fetchMarathons(){
         MarathonController.shared.fetchMarathons{ [weak self](result) in
             
-            DispatchQueue.main.async {
-                
-                switch result{
-                    
-                case .success(let p):
-                    print(p)
-                    self?.tableView.reloadData()
-                case .failure(let error):
-                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                }
-                
+            switch result{
+            case .success(let p):
+                print(p)
+                self?.fetchReferences()
+            case .failure(let error):
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
             }
+            
         }
+    }
+    
+    func fetchReferences(){
+        
+        for marathon in MarathonController.shared.marathons{
+            MarathonController.shared.fetchMovieReferences(with: marathon) { [weak self] (result) in
+                DispatchQueue.main.async {
+                    switch result{
+                        
+                    case .success(let finish):
+                        print(finish)
+                        self?.tableView.reloadData()
+                    case .failure(let error):
+                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    }
+                }
+            }
+            
+        }
+        
     }
     
 }

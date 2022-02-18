@@ -16,7 +16,7 @@ class MarathonController{
     let privateDB = CKContainer.default().privateCloudDatabase
     
     // MARK: - CRUD
-        
+    
     ///Creates a new marathon with a list of movies from the recommendation view.
     func createMarathonFromRecommendation(with movies: [String], name: String, completion: @escaping(Result<String, MarathonError>) -> Void){
         let marathon = Marathon(name: name)
@@ -67,7 +67,7 @@ class MarathonController{
         }
     }
     
-   ///Converts a CKReference of a movie and which is owned by a Marathon.
+    ///Converts a CKReference of a movie and which is owned by a Marathon.
     func createMovieReferences(with movieID: String, marathon: CKRecord, completion: @escaping(Result <String, MarathonError>) -> Void){
         let MarathonRecord = CKRecord(recordType: "MovieID")
         let reference = CKRecord.Reference(recordID: marathon.recordID, action: .deleteSelf)
@@ -98,21 +98,9 @@ class MarathonController{
             }
             guard let records = records else { return completion(.failure(.couldNotUnwrap))}
             
-            for record in records{
-                guard let fetchedMarathon = Marathon(ckRecord: record) else { return }
-                self.fetchMovieReferences(with: fetchedMarathon) { result in
-                    switch result{
-                        
-                    case .success(let finish):
-                        print(finish)
-                    case .failure(let error):
-                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                    }
-                }
-                self.marathons.append(fetchedMarathon)
-            }
-            
-            completion(.success("Successfully fetched \(self.marathons.count) marathons"))
+            let fetchedMarathons = records.compactMap{ Marathon(ckRecord: $0)}
+            self.marathons = fetchedMarathons
+            completion(.success("Successfully fetched \(fetchedMarathons.count) marathons"))
             
         }
     }
@@ -161,6 +149,6 @@ class MarathonController{
         
     }
     
-
- 
+    
+    
 }// End of class

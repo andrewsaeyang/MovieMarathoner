@@ -16,6 +16,16 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     // MARK: - Properties
     private let cellID = "watchListCell"
     
+    var movieIDs: [String] = []{
+        didSet{
+            updateView()
+            print("Number of movies recieved: \(movieIDs.count)")
+            
+        }
+    }
+    
+    var movies: [Movie] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,21 +37,30 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - UITableViewSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return movieIDs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell() // TODO: MAKE A CELL
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        var content = cell.defaultContentConfiguration()
+        content.text = movieIDs[indexPath.row] // TODO: ADD NAME
+        content.secondaryText = "Secondary Text" // TODO: Add more info
+        cell.contentConfiguration = content
+        
+        
+        return cell
     }
-    
-    /*
+ 
      // MARK: - Navigation
      
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
+     
      }
-     */
     
+    
+    // MARK: - Helper Functions
+    
+    func updateView(){
+        
+    }
 }

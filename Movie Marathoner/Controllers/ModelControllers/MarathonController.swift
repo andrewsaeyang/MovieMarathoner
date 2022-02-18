@@ -31,12 +31,13 @@ class MarathonController{
                   let savedMarathon = Marathon(ckRecord: record) else { return completion(.failure(.couldNotUnwrap))}
             
             for movie in movies{
-                self.createMovieReferences(with: movie, marathon: ckRecord) { result in
+                
+                self.createMovieReferences(with: movie, marathon: savedMarathon) { result in
                     switch result{
                         
-                    case .success(let p):
+                    case .success(let finish):
                         savedMarathon.movieIDs.append(movie)
-                        print(p)
+                        print(finish)
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                     }
@@ -67,8 +68,8 @@ class MarathonController{
         }
     }
     
-    ///Converts a CKReference of a movie and which is owned by a Marathon.
-    func createMovieReferences(with movieID: String, marathon: CKRecord, completion: @escaping(Result <String, MarathonError>) -> Void){
+    ///Converts a CKReference of a movie which is owned by a Marathon.
+    func createMovieReferences(with movieID: String, marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
         let MarathonRecord = CKRecord(recordType: "MovieID")
         let reference = CKRecord.Reference(recordID: marathon.recordID, action: .deleteSelf)
         
@@ -81,7 +82,14 @@ class MarathonController{
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 return(completion(.failure(.couldNotUnwrap)))
             }
-            print("Movie added with ID of: \(movieID)")
+            guard let record = record,
+                  let savedMovie = String(ckRecord: record),
+                  let index = self.marathons.firstIndex(of: marathon) else { return completion(.failure(.couldNotUnwrap))}
+            
+            self.marathons[index].movieIDs.append(savedMovie)
+            
+            completion(.success("Movie added with ID of: \(movieID)"))
+            
         }
     }
     ///Fetches all of the user's marathons along with the marathon's movies.

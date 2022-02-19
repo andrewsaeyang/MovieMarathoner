@@ -60,6 +60,11 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
         }
     }
     
+    
+    @IBAction func addButtonTapped(_ sender: Any) {
+        
+    }
+    
     // MARK: - Helper Methods
     func updateViews(){
         

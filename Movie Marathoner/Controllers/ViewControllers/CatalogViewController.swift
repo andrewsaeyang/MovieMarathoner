@@ -52,6 +52,9 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         //        }
     }
     
+    // MARK: - Actions
+    
+    
     // MARK: - Helper Methods
     func fetchMovies(with searchTerm: String){
         

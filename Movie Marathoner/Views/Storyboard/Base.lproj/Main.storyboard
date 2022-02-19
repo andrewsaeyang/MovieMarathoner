@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xvN-wg-D0X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xvN-wg-D0X">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -333,6 +334,7 @@
                     <navigationItem key="navigationItem" id="dPb-VT-1c4"/>
                     <connections>
                         <outlet property="tableView" destination="55H-OK-lXF" id="apX-cu-Agd"/>
+                        <segue destination="Xd9-qc-Fe8" kind="show" identifier="toDetailView" id="pxc-kY-LJT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EbV-wa-I46" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -558,7 +560,14 @@
                             <constraint firstItem="bHi-LY-hNE" firstAttribute="bottom" secondItem="w5V-Ab-Lo9" secondAttribute="bottom" id="ygC-Nt-0Sg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JhG-r9-61X"/>
+                    <navigationItem key="navigationItem" id="JhG-r9-61X">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="79X-pA-P8q">
+                            <connections>
+                                <action selector="addButtonTapped:" destination="Xd9-qc-Fe8" id="w3L-8M-Ctx"/>
+                                <segue destination="gxi-Px-1ij" kind="presentation" id="nS1-Yc-0KX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="filmImageView" destination="L3Y-wr-D4d" id="rRO-6s-0VX"/>
                         <outlet property="filmTitleLabel" destination="Dhe-xO-lQM" id="aGN-6N-kxd"/>
@@ -571,6 +580,69 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25u-8k-Sqf" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1719" y="-111"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="eEF-YB-vce">
+            <objects>
+                <viewController id="gxi-Px-1ij" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eWP-Nf-Dj3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which Marathon do you want to add this movie to?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0p-I6-M7F">
+                                <rect key="frame" x="24" y="87" width="366" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5O-Oj-bJV">
+                                <rect key="frame" x="351" y="24" width="39" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="chevron.down" catalog="system" symbolScale="default"/>
+                                </buttonConfiguration>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="v7n-hD-YTi">
+                                <rect key="frame" x="0.0" y="115.5" width="414" height="637.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="75" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-6W-mau">
+                                <rect key="frame" x="100" y="753" width="214" height="31"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffH-ct-lyz">
+                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35t-Rg-Fva">
+                                        <rect key="frame" x="144.5" y="0.0" width="69.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4DA-kI-YHd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="W0p-I6-M7F" firstAttribute="top" secondItem="S5O-Oj-bJV" secondAttribute="bottom" constant="32" id="8TM-sh-QHe"/>
+                            <constraint firstAttribute="trailing" secondItem="W0p-I6-M7F" secondAttribute="trailing" constant="24" id="8Yd-Z2-Cnb"/>
+                            <constraint firstItem="4DA-kI-YHd" firstAttribute="bottom" secondItem="YxP-6W-mau" secondAttribute="bottom" constant="24" id="9gQ-ca-HPh"/>
+                            <constraint firstItem="S5O-Oj-bJV" firstAttribute="top" secondItem="4DA-kI-YHd" secondAttribute="top" constant="24" id="Axk-Co-1U9"/>
+                            <constraint firstItem="YxP-6W-mau" firstAttribute="leading" secondItem="4DA-kI-YHd" secondAttribute="leading" constant="100" id="HFq-fL-FGR"/>
+                            <constraint firstItem="v7n-hD-YTi" firstAttribute="leading" secondItem="4DA-kI-YHd" secondAttribute="leading" id="Hrt-ZX-tF0"/>
+                            <constraint firstItem="4DA-kI-YHd" firstAttribute="trailing" secondItem="S5O-Oj-bJV" secondAttribute="trailing" constant="24" id="IFc-8v-ubf"/>
+                            <constraint firstItem="W0p-I6-M7F" firstAttribute="leading" secondItem="4DA-kI-YHd" secondAttribute="leading" constant="24" id="LDm-6J-acy"/>
+                            <constraint firstItem="4DA-kI-YHd" firstAttribute="trailing" secondItem="v7n-hD-YTi" secondAttribute="trailing" id="LqV-Uj-MMB"/>
+                            <constraint firstItem="4DA-kI-YHd" firstAttribute="trailing" secondItem="YxP-6W-mau" secondAttribute="trailing" constant="100" id="Qoz-Fu-b42"/>
+                            <constraint firstItem="v7n-hD-YTi" firstAttribute="top" secondItem="W0p-I6-M7F" secondAttribute="bottom" constant="8" id="UMl-gw-MmX"/>
+                            <constraint firstItem="YxP-6W-mau" firstAttribute="top" secondItem="v7n-hD-YTi" secondAttribute="bottom" id="i4V-xG-2ef"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yLa-j7-pF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2618" y="-71"/>
         </scene>
         <!--Home-->
         <scene sceneID="SXa-CT-Hjc">
@@ -609,7 +681,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="reccomendationCell" id="1xw-qa-t1k" customClass="RecommendationCollectionViewCell" customModule="Movie_Marathoner" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="recommendationCell" id="1xw-qa-t1k" customClass="RecommendationCollectionViewCell" customModule="Movie_Marathoner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fcz-N8-fjv">
@@ -777,6 +849,7 @@
         <segue reference="lcu-bO-jFU"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="film" catalog="system" width="128" height="93"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>

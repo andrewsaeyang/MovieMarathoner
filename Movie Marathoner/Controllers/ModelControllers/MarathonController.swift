@@ -153,8 +153,21 @@ class MarathonController{
         privateDB.add(modOP)
     }
     
-    func deleteMarathon(){
-        
+    func deleteMarathon(marathon: Marathon, completion: @escaping(Result<String, MarathonError>) -> Void){
+        privateDB.delete(withRecordID: marathon.recordID) { recordID, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                return(completion(.failure(.cKerror(error))))
+            }
+            
+            guard let recordID = recordID else { return completion(.failure(.couldNotUnwrap))}
+            
+            guard let index = self.marathons.firstIndex(of: marathon) else { return completion(.failure(.couldNotUnwrap))}
+            self.marathons.remove(at: index)
+            
+            completion(.success("Successfully deleted Marathon with id: \(recordID.recordName)"))
+            
+        }
     }
     
     

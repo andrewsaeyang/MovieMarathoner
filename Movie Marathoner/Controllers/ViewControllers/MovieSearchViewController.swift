@@ -93,9 +93,9 @@ class MovieSearchViewController: UIViewController, UICollectionViewDelegate, UIC
                   let indexPath = collectionView.indexPath(for: cell),
                   let destination = segue.destination as? RecommendationViewController else { return }
             
-            let filmToSend = filteredMovies[indexPath.row]
+            let movieToSend = filteredMovies[indexPath.row]
             
-            destination.movie = filmToSend
+            destination.movie = movieToSend
             destination.marathonTime = hours
         }
     }

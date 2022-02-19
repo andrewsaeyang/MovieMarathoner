@@ -28,7 +28,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     private var finalRecommendation: [Movie] = []
     
     
-    private let cellID = "reccomendationCell" // TODO: MISSPELLED "recommendation"
+    private let cellID = "recommendationCell"
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

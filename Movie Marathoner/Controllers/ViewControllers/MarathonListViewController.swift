@@ -61,6 +61,14 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         performSegue(withIdentifier: segueID, sender: self)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let marathonToDelete = MarathonController.shared.marathons[indexPath.row]
+            
+            deleteMarathon(marathon: marathonToDelete)
+            
+        }
+    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -115,12 +123,16 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     
     func createMarathon(name: String){
         MarathonController.shared.createMarathon(with: name) { (result) in
-            switch result{
-            case .success(let p):
-                print(p)
-            case .failure(let error):
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            DispatchQueue.main.async {
                 
+                switch result{
+                case .success(let finish):
+                    print(finish)
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    
+                }
             }
         }
     }
@@ -129,8 +141,8 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         MarathonController.shared.fetchMarathons{ [weak self](result) in
             
             switch result{
-            case .success(let p):
-                print(p)
+            case .success(let finish):
+                print(finish)
                 self?.fetchReferences()
             case .failure(let error):
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
@@ -156,4 +168,22 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
     }
+    
+    
+    func deleteMarathon(marathon: Marathon){
+        MarathonController.shared.deleteMarathon(marathon: marathon) { result in
+            DispatchQueue.main.async {
+                
+                switch result{
+                case .success(let finish):
+                    print(finish)
+                    self.tableView.reloadData()
+                case.failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                }
+            }
+        }
+        
+    }
+    
 }// End of class

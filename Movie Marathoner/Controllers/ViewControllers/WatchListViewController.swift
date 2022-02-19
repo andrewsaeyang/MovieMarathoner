@@ -15,6 +15,7 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - Properties
     private let cellID = "watchListCell"
+    private let segueID = "toDetailView"
     
     var movieIDs: [String] = []{
         didSet{
@@ -24,7 +25,7 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    var movies: [Movie] = []
+    var movies: [Movie] = [] // TODO: Set this into the singleton
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,49 +33,76 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.dataSource = self
         tableView.delegate = self
         
-        // Do any additional setup after loading the view.
+        // TODO: Set title of the marathon
     }
     
     // MARK: - UITableViewSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movieIDs.count
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = movieIDs[indexPath.row] // TODO: ADD NAME
-        content.secondaryText = "Secondary Text" // TODO: Add more info
+        content.text = movies[indexPath.row].originalTitle // TODO: ADD NAME
+        content.secondaryText = movies[indexPath.row].releaseDate // TODO: Add more info
         cell.contentConfiguration = content
         
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: segueID, sender: self)
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        // Identifier
+        if segue.identifier == segueID{
+            
+            // Index Path
+            // Destination
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let destination = segue.destination as? MovieDetailViewController else { return }
+            
+            let movieToSend = movies[indexPath.row]
+            
+            destination.movie = movieToSend
+            
+            // Object to send
+            
+            
+            // Object to Recieve
+            
+        }
     }
     
     
     // MARK: - Helper Functions
     
     func updateView(){
-        for id in movieIDs{
-            
-            MovieAPIController.fetchMovie(with: id) { result in
+        fetchMovies()
+    }
+    
+    func fetchMovies(){
+        
+        for id in self.movieIDs{
+            MovieAPIController.fetchMovie(with: id) { [weak self] result in
                 DispatchQueue.main.async {
-                    
                     switch result{
-                        
                     case .success(let movie):
-                        print(movie)
+                        self?.movies.append(movie)
+                        self?.tableView.reloadData()
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                        
                     }
                 }
             }
         }
     }
+    
 }// End of class

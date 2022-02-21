@@ -22,6 +22,7 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
     // MARK: - Properties
     var movie: Movie?
     var castMembers: [Cast] = []
+    private let segueID = "toAddMovieVC"
     
     let defaultURL: URL = URL(string: "https://image.tmdb.org/t/p/w500/xi8z6MjzTovVDg8Rho6atJCcKjL.jpg")!
     
@@ -62,6 +63,20 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
     
     
     @IBAction func addButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: segueID, sender: self)
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueID{
+            
+            
+            guard let destination = segue.destination as? AddMovieToMarathonViewController,
+                  let movieToSend = movie else { return }
+            
+            destination.movie = movieToSend
+        }
         
     }
     

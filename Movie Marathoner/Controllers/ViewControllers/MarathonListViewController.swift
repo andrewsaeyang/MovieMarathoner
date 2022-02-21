@@ -26,8 +26,13 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         
         tableView.dataSource = self
         tableView.delegate = self
-        updateView()
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,7 +59,7 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         content.secondaryText = "\(MarathonController.shared.marathons[indexPath.row].movieIDs.count) movies"
         
         cell.contentConfiguration = content
-        return cell// TODO: MAKE A CELL
+        return cell// TODO: MAKE A CELL?
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -77,10 +82,9 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? WatchListViewController else { return }
             
+            let marathonToSend = MarathonController.shared.marathons[indexPath.row]
             
-            let moviesToSend = MarathonController.shared.marathons[indexPath.row].movieIDs
-            
-            destination.movieIDs = moviesToSend
+            destination.marathon = marathonToSend
         }
     }
     
@@ -116,11 +120,6 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
-    func updateView(){
-        fetchMarathons()
-        
-    }
-    
     func createMarathon(name: String){
         MarathonController.shared.createMarathon(with: name) { (result) in
             DispatchQueue.main.async {
@@ -131,49 +130,14 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
                     self.tableView.reloadData()
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                    
                 }
             }
         }
     }
-    
-    func fetchMarathons(){
-        MarathonController.shared.fetchMarathons{ [weak self](result) in
-            
-            switch result{
-            case .success(let finish):
-                print(finish)
-                self?.fetchReferences()
-            case .failure(let error):
-                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-            }
-            
-        }
-    }
-    
-    func fetchReferences(){
-        
-        for marathon in MarathonController.shared.marathons{
-            MarathonController.shared.fetchMovieReferences(with: marathon) { [weak self] (result) in
-                DispatchQueue.main.async {
-                    switch result{
-                        
-                    case .success(let finish):
-                        print(finish)
-                        self?.tableView.reloadData()
-                    case .failure(let error):
-                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                    }
-                }
-            }
-        }
-    }
-    
     
     func deleteMarathon(marathon: Marathon){
         MarathonController.shared.deleteMarathon(marathon: marathon) { result in
             DispatchQueue.main.async {
-                
                 switch result{
                 case .success(let finish):
                     print(finish)
@@ -183,7 +147,5 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
         }
-        
     }
-    
 }// End of class

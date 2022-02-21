@@ -27,7 +27,6 @@ class RecommendationCollectionViewCell: UICollectionViewCell {
         //on tap, check if filmID is in the favorites array. if false, then crete new ckRecord. if true, remove it.
         //if
         
-        
     }
     // MARK: - Helper Methods
     
@@ -59,5 +58,3 @@ class RecommendationCollectionViewCell: UICollectionViewCell {
         }
     }
 }// End of class
-
-

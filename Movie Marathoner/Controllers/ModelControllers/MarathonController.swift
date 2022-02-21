@@ -36,16 +36,14 @@ class MarathonController{
                     switch result{
                         
                     case .success(let finish):
-                        savedMarathon.movieIDs.append(movie)
+                        //savedMarathon.movieIDs.append(movie) TODO: REMOVE THIS
                         print(finish)
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                     }
                 }
             }
-            
             self.marathons.append(savedMarathon)
-            
             
             completion(.success("Successfully created a marathon with recordID: \(savedMarathon.recordID.recordName) called \(savedMarathon.name)"))
         }
@@ -53,6 +51,7 @@ class MarathonController{
     
     ///Creates a new marathon.
     func createMarathon(with name: String, completion: @escaping(Result<String, MarathonError>) -> Void){
+        
         let marathon = Marathon(name: name)
         let ckRecord = CKRecord(marathon: marathon)
         
@@ -70,33 +69,31 @@ class MarathonController{
     
     ///Converts a CKReference of a movie which is owned by a Marathon.
     func createMovieReferences(with movieID: String, marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
-        let MarathonRecord = CKRecord(recordType: "MovieID")
-        let reference = CKRecord.Reference(recordID: marathon.recordID, action: .deleteSelf)
         
-        MarathonRecord["movieID"] = movieID as CKRecordValue
-        MarathonRecord["owningMovie"] = reference as CKRecordValue
+        let movieID = MovieID(movieID: movieID)
+        let ckRecord = CKRecord(movie: movieID, parent: marathon)
         
-        privateDB.save(MarathonRecord) { record, error in
+        privateDB.save(ckRecord) { record, error in
             
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 return(completion(.failure(.couldNotUnwrap)))
             }
+            
             guard let record = record,
-                  let savedMovie = String(ckRecord: record),
+                  let savedMovie = MovieID(ckRecord: record),
                   let index = self.marathons.firstIndex(of: marathon) else { return completion(.failure(.couldNotUnwrap))}
             
             self.marathons[index].movieIDs.append(savedMovie)
             
             completion(.success("Movie added with ID of: \(movieID)"))
-            
         }
     }
+    
     ///Fetches all of the user's marathons along with the marathon's movies.
     func fetchMarathons(completion: @escaping (Result<String, MarathonError>) -> Void){
         
         let predicate = NSPredicate (value: true)
-        
         let query = CKQuery(recordType: MarathonStrings.recordTypeKey, predicate: predicate)
         
         privateDB.perform(query, inZoneWith: nil){records, error in
@@ -116,7 +113,7 @@ class MarathonController{
     ///Fetches all movies owned by a Marathon
     func fetchMovieReferences(with marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
         let recordToMatch = CKRecord.Reference(recordID: marathon.recordID, action: .deleteSelf)
-        let predicate = NSPredicate(format: "owningMovie == %@", recordToMatch)
+        let predicate = NSPredicate(format: "owningMovie == %@", recordToMatch) // TODO: Reset Cloudkit and change to "owningMarathon"
         
         let query = CKQuery(recordType: "movieID", predicate: predicate)
         privateDB.perform(query, inZoneWith: nil){ records, error in
@@ -126,7 +123,7 @@ class MarathonController{
             }
             guard let records = records else { return completion(.failure(.couldNotUnwrap))}
             
-            let fetchedRecords = records.compactMap{ String(ckRecord: $0) }
+            let fetchedRecords = records.compactMap{ MovieID(ckRecord: $0) }
             marathon.movieIDs = fetchedRecords
             completion(.success("Successfully fetched \(fetchedRecords.count) movieIDs"))
         }
@@ -170,6 +167,21 @@ class MarathonController{
         }
     }
     
-    
-    
+    func deleteReference(marathon: Marathon, movieID: MovieID, completion: @escaping (Result<String, MarathonError>) -> Void ){
+        privateDB.delete(withRecordID: movieID.recordID) { recordID, error in
+            if let error = error {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                return(completion(.failure(.cKerror(error))))
+            }
+            
+            guard let recordID = recordID else { return completion(.failure(.couldNotUnwrap))}
+            
+            guard let marathonIndex = self.marathons.firstIndex(of: marathon),
+                  let movieIndex = self.marathons[marathonIndex].movieIDs.firstIndex(of: movieID) else { return completion(.failure(.couldNotUnwrap))}
+            
+            self.marathons[marathonIndex].movieIDs.remove(at: movieIndex)
+            
+            completion(.success("Successfully deleted Marathon with id: \(recordID.recordName)"))
+        }
+    }
 }// End of class

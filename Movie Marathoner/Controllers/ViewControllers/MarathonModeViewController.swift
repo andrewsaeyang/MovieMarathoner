@@ -24,6 +24,8 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         findMoviesButton.isUserInteractionEnabled = false
         findMoviesButton.alpha = 0.5
         
+        fetchMarathons()
+        
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }
@@ -36,7 +38,6 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: segueID, sender: self)
     }
     
-    
     // MARK: - Helper Functions
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
@@ -47,14 +48,9 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         } else {
             findMoviesButton.isUserInteractionEnabled = true
             findMoviesButton.alpha = 1.0
-            
         }
-        
-        
         let invalidCharacters = CharacterSet(charactersIn: "0123456789").inverted
         return string.rangeOfCharacter(from: invalidCharacters) == nil
-        
-        
     }
     
     @objc func dissmissedKeyboard() {
@@ -66,15 +62,40 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func fetchMarathons(){
+        MarathonController.shared.fetchMarathons{ [weak self](result) in
+            
+            switch result{
+            case .success(let finish):
+                print(finish)
+                self?.fetchReferences()
+            case .failure(let error):
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            }
+        }
+    }
+    
+    func fetchReferences(){
+        for marathon in MarathonController.shared.marathons{
+            MarathonController.shared.fetchMovieReferences(with: marathon) { result in
+                
+                switch result{
+                case .success(let finish):
+                    print(finish)
+                case .failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                }
+            }
+        }
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == segueID{
             guard let destination = segue.destination as? MovieSearchViewController,
                   let runTime = textField.text else { return }
             
             destination.hours = Int(runTime)!
-            
         }
     }
 }// End of class

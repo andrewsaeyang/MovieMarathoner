@@ -69,10 +69,6 @@ class AddMovieToMarathonViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
     // MARK: - Helper Functions
     
     func presentAddNewMarathonAlertController(){
@@ -96,7 +92,6 @@ class AddMovieToMarathonViewController: UIViewController, UITableViewDataSource,
             self.createMarathon(name: nameText)
             
             self.tableView.reloadData()
-            
         }
         
         alertController.addAction(cancelAction)
@@ -121,5 +116,4 @@ class AddMovieToMarathonViewController: UIViewController, UITableViewDataSource,
             }
         }
     }
-    
-}
+}// End of class

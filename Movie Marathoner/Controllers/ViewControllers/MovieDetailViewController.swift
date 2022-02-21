@@ -43,7 +43,6 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
         super.viewWillAppear(animated)
         fireSkeleton()
         tableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,19 +69,15 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segueID{
-            
-            
             guard let destination = segue.destination as? AddMovieToMarathonViewController,
                   let movieToSend = movie else { return }
             
             destination.movie = movieToSend
         }
-        
     }
     
     // MARK: - Helper Methods
     func updateViews(){
-        
         guard let movie = movie else { return }
         
         title = movie.originalTitle
@@ -96,7 +91,6 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
     }
     
     func fireSkeleton(){
-        
         filmImageView.isSkeletonable = true
         filmTitleLabel.isSkeletonable = true
         filmYearLabel.isSkeletonable = true
@@ -114,7 +108,6 @@ class MovieDetailViewController: UIViewController, SkeletonTableViewDataSource {
         synopsisTextView.stopSkeletonAnimation()
         view.hideSkeleton()
     }
-    
     
     func fetchPoster(for movie: Movie){
         MovieAPIController.fetchMoviePoster(with: movie.posterPath ?? defaultURL) { [weak self]result in

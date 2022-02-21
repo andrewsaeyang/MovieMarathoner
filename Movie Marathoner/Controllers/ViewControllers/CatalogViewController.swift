@@ -132,7 +132,6 @@ extension CatalogViewController: SkeletonCollectionViewDataSource{
     }
     
     func skeletonOn(){
-        
         view.showSkeleton()
         collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
         //collectionView.showSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
@@ -166,7 +165,7 @@ extension CatalogViewController: UISearchBarDelegate{
             //self.skeletonOff()
             
         })
-    }
+    } 
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filteredMovies = movies

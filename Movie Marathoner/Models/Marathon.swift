@@ -9,14 +9,14 @@ import Foundation
 import CloudKit
 enum MarathonStrings{
     static let recordTypeKey = "Marathon"
-    fileprivate static let marathonName = "name"
+    fileprivate static let marathonName = "marathonName"
 }
 
 class Marathon{
     let name: String
     let recordID: CKRecord.ID
-    var movieIDs: [String]
-    init(name: String, movieIDs: [String] = [], recordID: CKRecord.ID = (CKRecord.ID(recordName: UUID().uuidString))){
+    var movieIDs: [MovieID]
+    init(name: String, movieIDs: [MovieID] = [], recordID: CKRecord.ID = (CKRecord.ID(recordName: UUID().uuidString))){
 
         self.name = name
         self.movieIDs = movieIDs

@@ -8,8 +8,9 @@
 import Foundation
 import CloudKit
 enum MovieIDStrings{
-    static let recordTypeKey = "movie"
+    static let recordTypeKey = "Movie"
     fileprivate static let movieIDKey = "movieID"
+    fileprivate static let owningMarathonKey = "owningMarathon"
 }
 
 class MovieID{
@@ -24,5 +25,30 @@ class MovieID{
 }
 
 extension CKRecord{
- 
+    convenience init(movie: MovieID, parent: Marathon){
+        self.init(recordType: MovieIDStrings.recordTypeKey, recordID: movie.recordID)
+        let reference = CKRecord.Reference(recordID: parent.recordID, action: .deleteSelf)
+        
+        self.setValuesForKeys([
+            MovieIDStrings.movieIDKey : movie.movieID,
+            MovieIDStrings.owningMarathonKey : reference
+        ])
+
+    }
 }
+
+
+extension MovieID:Equatable{
+    
+    convenience init?(ckRecord: CKRecord){
+        guard let movieID = ckRecord[MovieIDStrings.movieIDKey] as? String else {return nil}
+        self.init(movieID: movieID, recordID: ckRecord.recordID)
+    }
+    
+    static func == (lhs: MovieID, rhs: MovieID ) -> Bool{
+        
+        return lhs.recordID == rhs.recordID
+        
+    }
+}
+

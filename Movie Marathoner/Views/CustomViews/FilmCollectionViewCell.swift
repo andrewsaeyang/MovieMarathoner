@@ -25,14 +25,12 @@ class FilmCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: ReloadCollectionDelegate?
     
-    
     // MARK: - Actions
     @IBAction func favoriteButtonTapped(_ sender: Any) {
         guard let _ = movie else { return }
         //On load, compare if film being loaded is in the favorites list, if so, mark the heart as favorited
         //on tap, check if filmID is in the favorites array. if false, then crete new ckRecord. if true, remove it.
         //if
-        
         
     }
     // MARK: - Helper Methods
@@ -44,7 +42,6 @@ class FilmCollectionViewCell: UICollectionViewCell {
         guard let movie = movie else { return }
         
         fetchPoster(for: movie)
-        
     }
     
     func fetchPoster(for movie: Movie){

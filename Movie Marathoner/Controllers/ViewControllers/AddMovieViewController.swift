@@ -92,7 +92,6 @@ class AddMovieToMarathonViewController: UIViewController, UITableViewDataSource,
             self.createMarathon(name: nameText)
             
             self.tableView.reloadData()
-            
         }
         
         alertController.addAction(cancelAction)

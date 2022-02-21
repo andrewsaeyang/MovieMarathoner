@@ -17,11 +17,10 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     private let cellID = "watchListCell"
     private let segueID = "toDetailView"
     
-    var movieIDs: [String] = []{
+    var marathon: Marathon?{
         didSet{
             updateView()
-            print("Number of movies recieved: \(movieIDs.count)")
-            
+            print("Number of movies recieved: \(marathon!.movieIDs.count)")
         }
     }
     
@@ -32,8 +31,6 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        // TODO: Set title of the marathon
     }
     
     // MARK: - UITableViewSource
@@ -56,6 +53,31 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         performSegue(withIdentifier: segueID, sender: self)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let marathon = marathon else {
+            return
+        }
+        
+        
+        if editingStyle == .delete{
+            
+            let movieToDelete = marathon.movieIDs[indexPath.row]
+            
+            MarathonController.shared.deleteReference(marathon: marathon, movieID: movieToDelete) { [weak self]result in
+                
+                DispatchQueue.main.async {
+                    switch result{
+                    case .success(let finish):
+                        print(finish)
+                        self?.fetchMovies()
+                    case .failure(let error):
+                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,26 +93,24 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
             let movieToSend = movies[indexPath.row]
             
             destination.movie = movieToSend
-            
-            // Object to send
-            
-            
-            // Object to Recieve
-            
         }
     }
-    
     
     // MARK: - Helper Functions
     
     func updateView(){
+        
+        guard let marathon = marathon else { return }
+        self.title = marathon.name
         fetchMovies()
     }
     
     func fetchMovies(){
         
-        for id in self.movieIDs{
-            MovieAPIController.fetchMovie(with: id) { [weak self] result in
+        guard let marathon = marathon else { return }
+        movies = []
+        for id in marathon.movieIDs{
+            MovieAPIController.fetchMovie(with: id.movieID) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result{
                     case .success(let movie):
@@ -104,5 +124,4 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
     }
-    
 }// End of class

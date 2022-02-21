@@ -10,10 +10,8 @@ import UIKit
 class RecommendationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - Outlets
-    
     @IBOutlet weak var runTimeLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    
     
     // MARK: - Properties
     var movie: Movie?{
@@ -26,8 +24,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     private var finalRunTime = -1
     private var movieRecommendations: [Movie] = []
     private var finalRecommendation: [Movie] = []
-    
-    
     private let cellID = "recommendationCell"
     
     // MARK: - Lifecycle
@@ -41,15 +37,12 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     // MARK: - Actions
-    
     @IBAction func newMarathonButtonTapped(_ sender: Any) {
         
         presentAddNewMarathonAlertController()
     }
     
-    
     // MARK: - Helper Methods
-    
     func presentAddNewMarathonAlertController(){
         let alertController = UIAlertController(title: "What do you want to name your new Marathon?", message: "", preferredStyle: .alert)
         
@@ -68,9 +61,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             
             guard let nameText = alertController.textFields?.first?.text, !nameText.isEmpty else { return }
             
-            
-        
-            
             let list = self.getMovieID(with: self.finalRecommendation).compactMap{ $0 }
             
             
@@ -82,19 +72,13 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
                     print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 }
             }
-            
-            
-            
         }
-        
         alertController.addAction(cancelAction)
         alertController.addAction(addAction)
         
         self.present(alertController, animated: true, completion: nil)
-        
     }
     
-   
     func updateView(){
         guard let movie = movie else { return }
         if let movieID = movie.id{
@@ -144,7 +128,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
                 }
             }
         }
-        
         print(countRunTime(for: finalRecommendation))
         runTimeLabel.text = "Total runtime: \(printRunTime())"
         collectionView.reloadData()
@@ -171,7 +154,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func printRunTime() -> String{
-        
         let minuites = finalRunTime%60
         let hours = finalRunTime/60
         
@@ -187,8 +169,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
     }
-    
-    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

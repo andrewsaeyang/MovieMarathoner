@@ -110,7 +110,6 @@ extension MovieSearchViewController: UICollectionViewDelegateFlowLayout {
         let width = view.frame.width * 0.45
         
         return CGSize(width: width, height: width * 3/2 )
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -135,7 +134,6 @@ extension MovieSearchViewController: SkeletonCollectionViewDataSource{
         view.showSkeleton()
         collectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .concrete), animation: nil, transition: .crossDissolve(0.25))
         //collectionView.showSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
-        
     }
     
     func skeletonOff(){
@@ -163,7 +161,6 @@ extension MovieSearchViewController: UISearchBarDelegate{
             
             self.collectionView.reloadData()
             //self.skeletonOff()
-            
         })
     }
     

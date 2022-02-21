@@ -564,7 +564,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="79X-pA-P8q">
                             <connections>
                                 <action selector="addButtonTapped:" destination="Xd9-qc-Fe8" id="w3L-8M-Ctx"/>
-                                <segue destination="gxi-Px-1ij" kind="presentation" id="nS1-Yc-0KX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -575,16 +574,17 @@
                         <outlet property="synopsisTextView" destination="TpZ-Dg-JIN" id="Mzn-jR-p5h"/>
                         <outlet property="tableView" destination="Rzy-Jm-GXP" id="E6G-5P-0pQ"/>
                         <outlet property="tableViewHeight" destination="gKR-k6-kCU" id="hrX-49-Ufc"/>
+                        <segue destination="gxi-Px-1ij" kind="presentation" identifier="toAddMovieVC" id="mge-4F-5sB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25u-8k-Sqf" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1719" y="-111"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Movie To Marathon View Controller-->
         <scene sceneID="eEF-YB-vce">
             <objects>
-                <viewController id="gxi-Px-1ij" sceneMemberID="viewController">
+                <viewController id="gxi-Px-1ij" customClass="AddMovieToMarathonViewController" customModule="Movie_Marathoner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eWP-Nf-Dj3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -596,28 +596,45 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5O-Oj-bJV">
-                                <rect key="frame" x="351" y="24" width="39" height="31"/>
+                                <rect key="frame" x="345" y="24" width="45" height="31"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <imageReference key="image" image="chevron.down" catalog="system" symbolScale="default"/>
+                                <buttonConfiguration key="configuration" style="plain" title="">
+                                    <imageReference key="image" image="chevron.down" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="semibold"/>
                                 </buttonConfiguration>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="v7n-hD-YTi">
                                 <rect key="frame" x="0.0" y="115.5" width="414" height="637.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="marathonCell" id="fJf-sH-pwh">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fJf-sH-pwh" id="UNg-Je-7NU">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="75" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-6W-mau">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-6W-mau">
                                 <rect key="frame" x="100" y="753" width="214" height="31"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffH-ct-lyz">
-                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="103" height="31"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Create New"/>
+                                        <connections>
+                                            <action selector="createMarathonButtonTapped:" destination="gxi-Px-1ij" eventType="touchUpInside" id="Afy-jB-3uW"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35t-Rg-Fva">
-                                        <rect key="frame" x="144.5" y="0.0" width="69.5" height="31"/>
+                                        <rect key="frame" x="111" y="0.0" width="103" height="31"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Add To"/>
+                                        <connections>
+                                            <action selector="addToMarathonTapped:" destination="gxi-Px-1ij" eventType="touchUpInside" id="6OG-Ap-cll"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -639,6 +656,9 @@
                             <constraint firstItem="YxP-6W-mau" firstAttribute="top" secondItem="v7n-hD-YTi" secondAttribute="bottom" id="i4V-xG-2ef"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="v7n-hD-YTi" id="5nX-ve-NwZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yLa-j7-pF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

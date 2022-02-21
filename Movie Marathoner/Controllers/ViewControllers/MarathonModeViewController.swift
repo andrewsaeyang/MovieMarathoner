@@ -24,6 +24,8 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         findMoviesButton.isUserInteractionEnabled = false
         findMoviesButton.alpha = 0.5
         
+        fetchMarathons()
+        
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }
@@ -64,6 +66,35 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func fetchMarathons(){
+        MarathonController.shared.fetchMarathons{ [weak self](result) in
+            
+            switch result{
+            case .success(let finish):
+                print(finish)
+                self?.fetchReferences()
+            case .failure(let error):
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            }
+            
+        }
+    }
+    
+    func fetchReferences(){
+        
+        for marathon in MarathonController.shared.marathons{
+            MarathonController.shared.fetchMovieReferences(with: marathon) { result in
+                
+                switch result{
+                case .success(let finish):
+                    print(finish)
+                case .failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                }
+            }
+        }
     }
     
     // MARK: - Navigation

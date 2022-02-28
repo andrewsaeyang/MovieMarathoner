@@ -7,6 +7,7 @@
 
 import Foundation
 import CloudKit
+
 enum MovieIDStrings{
     static let recordTypeKey = "Movie"
     fileprivate static let movieIDKey = "movieID"
@@ -37,7 +38,6 @@ extension CKRecord{
     }
 }
 
-
 extension MovieID:Equatable{
     
     convenience init?(ckRecord: CKRecord){
@@ -51,4 +51,3 @@ extension MovieID:Equatable{
         
     }
 }
-

@@ -17,5 +17,3 @@ struct MovieTopLevelObject: Decodable {
 struct CastTopLevelObject: Decodable {
     let cast: [Cast]
 }
-
-

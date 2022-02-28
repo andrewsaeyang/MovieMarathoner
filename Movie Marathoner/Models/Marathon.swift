@@ -21,7 +21,6 @@ class Marathon{
         self.name = name
         self.movieIDs = movieIDs
         self.recordID = recordID
-        
     }
 }
 
@@ -36,7 +35,6 @@ extension CKRecord{
 }// End of Extension
 
 extension Marathon: Equatable{
-    
     convenience init?(ckRecord: CKRecord){
         guard let name = ckRecord[MarathonStrings.marathonName] as? String else { return nil}
         self.init(name: name, recordID: ckRecord.recordID)
@@ -45,6 +43,5 @@ extension Marathon: Equatable{
     static func == (lhs: Marathon, rhs: Marathon ) -> Bool{
         
         return lhs.recordID == rhs.recordID
-        
     }
-}
+}// End of Extension

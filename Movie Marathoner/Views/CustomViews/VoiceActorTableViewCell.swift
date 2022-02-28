@@ -38,12 +38,12 @@ class VoiceActorTableViewCell: UITableViewCell {
     func setCastImage(for url: URL?){
         if let url = url{
             
-            MovieAPIController.fetchMoviePoster(with: url) { result in
+            MovieAPIController.fetchMoviePoster(with: url) { [weak self] result in
                 DispatchQueue.main.async {
                     
                     switch result{
                     case .success(let image):
-                        self.actorImageView.image = image
+                        self?.actorImageView.image = image
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                     }

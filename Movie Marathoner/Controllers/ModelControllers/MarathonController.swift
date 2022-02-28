@@ -18,7 +18,7 @@ class MarathonController{
     // MARK: - CRUD
     
     ///Creates a new marathon with a list of movies from the recommendation view.
-    func createMarathonFromRecommendation(with movies: [String], name: String, completion: @escaping(Result<String, MarathonError>) -> Void){
+    func createMarathonFromRecommendation(with movieIDs: [String], name: String, completion: @escaping(Result<String, MarathonError>) -> Void){
         let marathon = Marathon(name: name)
         let ckRecord = CKRecord(marathon: marathon)
         
@@ -30,13 +30,12 @@ class MarathonController{
             guard let record = record,
                   let savedMarathon = Marathon(ckRecord: record) else { return completion(.failure(.couldNotUnwrap))}
             
-            for movie in movies{
+            for movieID in movieIDs{
                 
-                self.createMovieReferences(with: movie, marathon: savedMarathon) { result in
+                self.createMovieReferences(with: movieID, marathon: savedMarathon) { result in
                     switch result{
                         
                     case .success(let finish):
-                        //savedMarathon.movieIDs.append(movie) TODO: REMOVE THIS
                         print(finish)
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
@@ -113,9 +112,9 @@ class MarathonController{
     ///Fetches all movies owned by a Marathon
     func fetchMovieReferences(with marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
         let recordToMatch = CKRecord.Reference(recordID: marathon.recordID, action: .deleteSelf)
-        let predicate = NSPredicate(format: "owningMovie == %@", recordToMatch) // TODO: Reset Cloudkit and change to "owningMarathon"
+        let predicate = NSPredicate(format: "owningMarathon == %@", recordToMatch) // TODO: Reset Cloudkit and change to "owningMarathon"
         
-        let query = CKQuery(recordType: "movieID", predicate: predicate)
+        let query = CKQuery(recordType: MovieIDStrings.recordTypeKey, predicate: predicate)
         privateDB.perform(query, inZoneWith: nil){ records, error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")

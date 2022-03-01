@@ -46,7 +46,7 @@ class FilmCollectionViewCell: UICollectionViewCell {
     
     func fetchPoster(for movie: Movie){
         guard let posterPath = movie.posterPath else { return }
-        MovieAPIController.fetchMoviePoster(with: posterPath) { [weak self]result in
+        MovieAPIController.fetchMoviePoster(with: posterPath) { [weak self] result in
             
             DispatchQueue.main.async {
                 switch result{

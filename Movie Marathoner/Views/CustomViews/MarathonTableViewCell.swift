@@ -16,7 +16,6 @@ class MarathonTableViewCell: UITableViewCell {
         var contentConfig = defaultContentConfiguration().updated(for: state)
         
     }
-    
 }
 
 /*

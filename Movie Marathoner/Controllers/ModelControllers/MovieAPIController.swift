@@ -111,7 +111,6 @@ class MovieAPIController{
             }
         }
         task.resume()
-        
     }
     
     static func fetchRecommendations(with movieID: String, completion: @escaping (Result<[Movie], NetworkError>) -> Void){
@@ -226,6 +225,9 @@ class MovieAPIController{
         task.resume()
     }
     
+    /**
+     This function is used because the 'fetchRecommendations' function returns [Movie] with nil values for runTime. It takes the movieID of each recommended film and translates it into a usable [Movie]
+     */
     static func translateData(with movies: [Movie], completion: @escaping ([Movie]) -> Void){
         var movieData: [Movie] = []
         let dispatchGroup = DispatchGroup()
@@ -233,7 +235,7 @@ class MovieAPIController{
         for movie in movies{
             if let movieID = movie.id{
                 dispatchGroup.enter()
-                fetchMovie(with: "\(movieID)") { (result) in
+                fetchMovie(with: "\(movieID)") { result in
                     switch result{
                     case .success(let movie):
                         movieData.append(movie)

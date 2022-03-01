@@ -52,6 +52,4 @@ struct Movie: Decodable{
         
         return dateFormatterPrint.string(from: date)
     }
-    
-    
 }

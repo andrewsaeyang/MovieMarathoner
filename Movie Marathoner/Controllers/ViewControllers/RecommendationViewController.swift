@@ -14,11 +14,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - Properties
-    var movie: Movie?{
-        didSet{
-            updateView()
-        }
-    }
+    var movie: Movie?
     
     var marathonTime: Int = -1
     private var finalRunTime = -1
@@ -32,17 +28,18 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        //updateView()
-        
+        updateView()
     }
     
     // MARK: - Actions
     @IBAction func newMarathonButtonTapped(_ sender: Any) {
-        
         presentAddNewMarathonAlertController()
     }
     
     // MARK: - Helper Methods
+    /**
+     Triggers alert to allow the user to add recommendations to a new Marathon
+     */
     func presentAddNewMarathonAlertController(){
         let alertController = UIAlertController(title: "What do you want to name your new Marathon?", message: "", preferredStyle: .alert)
         
@@ -62,7 +59,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             guard let nameText = alertController.textFields?.first?.text, !nameText.isEmpty else { return }
             
             let list = self.getMovieID(with: self.finalRecommendation).compactMap{ $0 }
-            
             
             MarathonController.shared.createMarathonFromRecommendation(with: list, name: nameText) { (result) in
                 switch result{
@@ -84,53 +80,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
         if let movieID = movie.id{
             fetchRecommendations(with: "\(movieID)")
         }
-    }
-    
-    //First Function
-    ///Fetches Recommendation from the API base on a movieID
-    func fetchRecommendations(with movieID: String){
-        MovieAPIController.fetchRecommendations(with: movieID) { [weak self]result in
-            
-            DispatchQueue.main.async {
-                switch result{
-                case .success(let movies):
-                    self?.translateData(with: movies)
-                    print("Number of Recommendations found: \(movies.count)")
-                case .failure(let error):
-                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                }
-            }
-        }
-    }
-    
-    //second Function
-    ///Shuffles the list of movies
-    func translateData(with movieData: [Movie]){
-        MovieAPIController.translateData(with: movieData) { result in
-            self.movieRecommendations = result
-            self.movieRecommendations.shuffle()
-            self.configureRecommendation()
-        }
-    }
-    ///Takes the entire list and gives the number of movies based on the marathon time
-    func configureRecommendation(){
-        marathonTime = marathonTime * 60
-        
-        for movie in movieRecommendations{
-            if let runTime = movie.runtime{
-                let doesTimeFit = runTime + finalRunTime
-                
-                if doesTimeFit <= marathonTime{
-                    finalRecommendation.append(movie)
-                    finalRunTime += runTime
-                    print("Current runtime: \(countRunTime(for: finalRecommendation)) with \(finalRecommendation.count) movies")
-                    
-                }
-            }
-        }
-        print(countRunTime(for: finalRecommendation))
-        runTimeLabel.text = "Total runtime: \(printRunTime())"
-        collectionView.reloadData()
     }
     
     ///turns an array of movies into array of String with movieIDs
@@ -182,6 +131,57 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
 }// End of class
+
+extension RecommendationViewController {
+    //First Function
+    ///Fetches Recommendation from the API base on a movieID
+    func fetchRecommendations(with movieID: String){
+        MovieAPIController.fetchRecommendations(with: movieID) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let movies):
+                    self?.translateData(with: movies)
+                    print("Number of Recommendations found: \(movies.count)")
+                case .failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                }
+            }
+        }
+    }
+    
+    //second Function
+    ///Shuffles the list of movies
+    func translateData(with movieData: [Movie]){
+        MovieAPIController.translateData(with: movieData) { result in
+            self.movieRecommendations = result
+            self.movieRecommendations.shuffle()
+            self.configureRecommendation()
+        }
+    }
+    //third function
+    ///
+    func configureRecommendation(){
+        marathonTime = marathonTime * 60
+        
+        for movie in movieRecommendations{
+            if let runTime = movie.runtime{
+                let doesTimeFit = runTime + finalRunTime
+                
+                if doesTimeFit <= marathonTime{
+                    finalRecommendation.append(movie)
+                    finalRunTime += runTime
+                    print("Current runtime: \(countRunTime(for: finalRecommendation)) with \(finalRecommendation.count) movies")
+                    
+                }
+            }
+        }
+        print(countRunTime(for: finalRecommendation))
+        runTimeLabel.text = "Total runtime: \(printRunTime())"
+        collectionView.reloadData()
+    }
+    
+    
+}
 
 extension RecommendationViewController{
     // MARK: UICollectionViewDataSource

@@ -33,18 +33,15 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.delegate = self
     }
     
-    // MARK: - UITableViewSource
+    // MARK: - UITableView Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        var content = cell.defaultContentConfiguration()
-        content.text = movies[indexPath.row].originalTitle // TODO: ADD NAME
-        content.secondaryText = movies[indexPath.row].releaseDate // TODO: Add more info
-        cell.contentConfiguration = content
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? WatchListTableViewCell else { return UITableViewCell()}
         
+        cell.movie = movies[indexPath.row]
         
         return cell
     }
@@ -54,16 +51,13 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let marathon = marathon else {
-            return
-        }
-        
+        guard let marathon = marathon else { return }
         
         if editingStyle == .delete{
             
             let movieToDelete = marathon.movieIDs[indexPath.row]
             
-            MarathonController.shared.deleteReference(marathon: marathon, movieID: movieToDelete) { [weak self]result in
+            MarathonController.shared.deleteReference(marathon: marathon, movieID: movieToDelete) { [weak self] result in
                 
                 DispatchQueue.main.async {
                     switch result{

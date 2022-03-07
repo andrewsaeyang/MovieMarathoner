@@ -46,7 +46,7 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
         presentAddNewMarathonAlertController()
     }
     
-    // MARK: - UITable Datasource
+    // MARK: - UITableView Datasource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MarathonController.shared.marathons.count

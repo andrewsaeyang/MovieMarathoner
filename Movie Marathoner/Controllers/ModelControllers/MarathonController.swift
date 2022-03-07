@@ -69,6 +69,8 @@ class MarathonController{
     ///Converts a CKReference of a movie which is owned by a Marathon.
     func createMovieReferences(with movieID: String, marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
         
+        // TODO: Changed parameter to movie, pull movie.ID into 
+        
         let movieID = MovieID(movieID: movieID)
         let ckRecord = CKRecord(movie: movieID, parent: marathon)
         
@@ -112,7 +114,7 @@ class MarathonController{
     ///Fetches all movies owned by a Marathon
     func fetchMovieReferences(with marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
         let recordToMatch = CKRecord.Reference(recordID: marathon.recordID, action: .deleteSelf)
-        let predicate = NSPredicate(format: "owningMarathon == %@", recordToMatch) // TODO: Reset Cloudkit and change to "owningMarathon"
+        let predicate = NSPredicate(format: "owningMarathon == %@", recordToMatch)
         
         let query = CKQuery(recordType: MovieIDStrings.recordTypeKey, predicate: predicate)
         privateDB.perform(query, inZoneWith: nil){ records, error in
@@ -123,6 +125,9 @@ class MarathonController{
             guard let records = records else { return completion(.failure(.couldNotUnwrap))}
             
             let fetchedRecords = records.compactMap{ MovieID(ckRecord: $0) }
+            
+            // TODO: fetched records into Movies
+            
             marathon.movieIDs = fetchedRecords
             completion(.success("Successfully fetched \(fetchedRecords.count) movieIDs"))
         }

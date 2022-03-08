@@ -23,13 +23,17 @@ class VoiceActorTableViewCell: UITableViewCell {
     
     // MARK: - Helper Methods
     func updateViews(){
-        guard let cast = castMember else {
+        
+        guard let cast = castMember else { // TODO: better error handling
             roleLabel.text = "Cat"
             nameLabel.text = "Billy Bob"
             return }
         
         // TODO: Add Photo
-        //print("Cast member name is: \(cast.name) and role is: \(cast.character)")
+    
+        actorImageView.layer.cornerRadius = 8
+        actorImageView.contentMode = .scaleAspectFit
+        
         roleLabel.text = cast.character
         nameLabel.text = cast.name
         setCastImage(for: cast.profilePath)

@@ -316,7 +316,7 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WGo-th-o6Y">
                                                     <rect key="frame" x="8" y="8" width="83.5" height="125"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="140" id="0Sn-YE-Pba"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="140" id="0Sn-YE-Pba"/>
                                                         <constraint firstAttribute="width" secondItem="WGo-th-o6Y" secondAttribute="height" multiplier="2:3" id="lIp-d6-8Cp"/>
                                                     </constraints>
                                                 </imageView>
@@ -406,7 +406,7 @@
                                                                     <rect key="frame" x="8" y="9" width="65" height="62.5"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="XOl-ub-baM" secondAttribute="height" multiplier="1:1" id="EWm-jr-Tub"/>
-                                                                        <constraint firstAttribute="height" constant="80" id="Ebf-2Q-L92"/>
+                                                                        <constraint firstAttribute="height" priority="999" constant="80" id="Ebf-2Q-L92"/>
                                                                     </constraints>
                                                                 </imageView>
                                                             </subviews>

@@ -104,7 +104,6 @@ class MovieAPIController{
                 let movie = try JSONDecoder().decode(Movie.self, from: data)
                 completion(.success(movie))
                 
-                
             } catch {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 completion(.failure(.unableToDecode))
@@ -127,7 +126,7 @@ class MovieAPIController{
         components?.queryItems = [URLQueryItem(name: apiKeyKey, value: apiKeyValue)]
         
         guard let finalURL = components?.url else { return completion(.failure(.invalidURL))}
-        print(finalURL)
+        //print(finalURL)
         
         let task = URLSession.shared.dataTask(with: finalURL) { data, _, error in
             if let error = error {
@@ -159,7 +158,7 @@ class MovieAPIController{
         guard let imageBaseURL = imageBaseURL else { return completion(.failure(.invalidURL))}
         let finalURL = imageBaseURL.appendingPathComponent(url.absoluteString)
         
-        print(finalURL)
+        //print(finalURL)
         let task = URLSession.shared.dataTask(with: finalURL) { data, response, error in
             if let error = error{
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")

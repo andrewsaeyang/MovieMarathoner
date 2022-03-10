@@ -17,13 +17,7 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     private let cellID = "watchListCell"
     private let segueID = "toDetailView"
     
-    var marathon: Marathon?{
-        didSet{
-            updateView()
-            print("Number of movies recieved: \(marathon!.movies.count)")
-        }
-    }
-    
+    var marathon: Marathon?
     var movies: [Movie] = [] // TODO: Set this into the singleton
     
     override func viewDidLoad() {
@@ -31,6 +25,8 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         
         tableView.dataSource = self
         tableView.delegate = self
+        print("Number of movies recieved: \(marathon!.movies.count)")
+        updateView()
     }
     
     // MARK: - UITableView Datasource

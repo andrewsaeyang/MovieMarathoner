@@ -30,19 +30,17 @@ class AddMovieToMarathonViewController: UIViewController, UITableViewDataSource,
     // MARK: - Actions
     
     @IBAction func createMarathonButtonTapped(_ sender: Any) {
-        
         presentAddNewMarathonAlertController()
     }
     
     @IBAction func addToMarathonTapped(_ sender: Any) {
-        guard let movieid = movie?.id,
+        guard let movie = movie,
               let indexPath = tableView.indexPathForSelectedRow else { return }
         let selectedMarathon = MarathonController.shared.marathons[indexPath.row]
-        let movieID = "\(movieid)" // TODO: FIX THIS
         
-        MarathonController.shared.createMovieReferences(with: movieID, marathon: selectedMarathon) { result in
+        
+        MarathonController.shared.createMovieReferences(with: movie, marathon: selectedMarathon) { result in
             DispatchQueue.main.async {
-                
                 switch result{
                 case .success(let finish):
                     print(finish)

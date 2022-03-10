@@ -18,7 +18,7 @@ class MarathonController{
     // MARK: - CRUD
     
     ///Creates a new marathon with a list of movies from the recommendation view.
-    func createMarathonFromRecommendation(with movieIDs: [String], name: String, completion: @escaping(Result<String, MarathonError>) -> Void){
+    func createMarathonFromRecommendation(with movies: [Movie], name: String, completion: @escaping(Result<String, MarathonError>) -> Void){
         let marathon = Marathon(name: name)
         let ckRecord = CKRecord(marathon: marathon)
         
@@ -30,13 +30,14 @@ class MarathonController{
             guard let record = record,
                   let savedMarathon = Marathon(ckRecord: record) else { return completion(.failure(.couldNotUnwrap))}
             
-            for movieID in movieIDs{
+            for movie in movies{
                 
-                self.createMovieReferences(with: movieID, marathon: savedMarathon) { result in
+                self.createMovieReferences(with: movie, marathon: savedMarathon) { result in
                     switch result{
-                        
                     case .success(let finish):
                         print(finish)
+                        savedMarathon.movies.append(movie)
+                        
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                     }
@@ -67,11 +68,11 @@ class MarathonController{
     }
     
     ///Converts a CKReference of a movie which is owned by a Marathon.
-    func createMovieReferences(with movieID: String, marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
+    func createMovieReferences(with movie: Movie, marathon: Marathon, completion: @escaping(Result <String, MarathonError>) -> Void){
         
         // TODO: Changed parameter to movie, pull movie.ID into 
         
-        let movieID = MovieID(movieID: movieID)
+        let movieID = MovieID(movieID: "\(movie.id ?? -1)")// TODO: BUG FIX THIS
         let ckRecord = CKRecord(movie: movieID, parent: marathon)
         
         privateDB.save(ckRecord) { record, error in
@@ -86,6 +87,7 @@ class MarathonController{
                   let index = self.marathons.firstIndex(of: marathon) else { return completion(.failure(.couldNotUnwrap))}
             
             self.marathons[index].movieIDs.append(savedMovie)
+            self.marathons[index].movies.append(movie)
             
             completion(.success("Movie added with ID of: \(movieID)"))
         }

@@ -58,7 +58,7 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
             
             guard let nameText = alertController.textFields?.first?.text, !nameText.isEmpty else { return }
             
-            let list = self.getMovieID(with: self.finalRecommendation).compactMap{ $0 }
+            let list = self.finalRecommendation.compactMap{ $0 }
             
             MarathonController.shared.createMarathonFromRecommendation(with: list, name: nameText) { (result) in
                 switch result{
@@ -80,15 +80,6 @@ class RecommendationViewController: UIViewController, UICollectionViewDelegate, 
         if let movieID = movie.id{
             fetchRecommendations(with: "\(movieID)")
         }
-    }
-    
-    ///turns an array of movies into array of String with movieIDs
-    func getMovieID(with movies: [Movie]) -> [String]{
-        var retVal: [String] = []
-        for movie in movies{
-            retVal.append("\(movie.id ?? -1)")// TODO: BUG! FIX THIS!
-        }
-        return retVal
     }
     
     func countRunTime(for marathon: [Movie]) -> Int {

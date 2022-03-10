@@ -74,7 +74,7 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == segueID{
+        if segue.identifier == segueID {
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? WatchListViewController else { return }
             

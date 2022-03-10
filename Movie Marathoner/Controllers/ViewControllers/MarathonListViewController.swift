@@ -10,15 +10,11 @@ import UIKit
 class MarathonListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Outlets
-    
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    
     private let cellID = "marathonListCell"
     private let segueID = "toMovieList"
-    
-    var marathons: [Marathon] = []
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -85,6 +81,9 @@ class MarathonListViewController: UIViewController, UITableViewDelegate, UITable
             let marathonToSend = MarathonController.shared.marathons[indexPath.row]
             
             destination.marathon = marathonToSend
+            print("😡😡😡😡😡😡")
+            print(marathonToSend)
+            print("😡😡😡😡😡😡")
         }
     }
     

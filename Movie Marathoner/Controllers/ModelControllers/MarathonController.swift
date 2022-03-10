@@ -127,6 +127,17 @@ class MarathonController{
             let fetchedRecords = records.compactMap{ MovieID(ckRecord: $0) }
             
             // TODO: fetched records into Movies
+            for movieID in fetchedRecords{
+                MovieAPIController.fetchMovie(with: movieID.movieID) { result in
+                    switch result{
+                    case .success(let movie):
+                        marathon.movies.append(movie)
+                    case .failure(let error):
+                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                    }
+                }
+            }
+            
             
             marathon.movieIDs = fetchedRecords
             completion(.success("Successfully fetched \(fetchedRecords.count) movieIDs"))

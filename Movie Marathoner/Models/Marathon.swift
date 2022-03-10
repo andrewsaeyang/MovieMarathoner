@@ -16,11 +16,13 @@ class Marathon{
     let name: String
     let recordID: CKRecord.ID
     var movieIDs: [MovieID]
-    init(name: String, movieIDs: [MovieID] = [], recordID: CKRecord.ID = (CKRecord.ID(recordName: UUID().uuidString))){
+    var movies: [Movie]
+    init(name: String, movieIDs: [MovieID] = [], movies: [Movie] = [], recordID: CKRecord.ID = (CKRecord.ID(recordName: UUID().uuidString))){
 
         self.name = name
         self.movieIDs = movieIDs
         self.recordID = recordID
+        self.movies = movies
     }
 }
 

@@ -20,7 +20,7 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     var marathon: Marathon?{
         didSet{
             updateView()
-            print("Number of movies recieved: \(marathon!.movieIDs.count)")
+            print("Number of movies recieved: \(marathon!.movies.count)")
         }
     }
     
@@ -35,14 +35,21 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - UITableView Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        guard let marathon = marathon else {
+            return 0
+        }
+//TESTRUN
+        return marathon.movies.count
+        //return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? WatchListTableViewCell else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? WatchListTableViewCell,
+        let marathon = marathon else { return UITableViewCell()}
         
-        cell.movie = movies[indexPath.row]
-        
+        cell.movie = marathon.movies[indexPath.row]
+        //cell.movie = movies[indexPath.row]
+        //TEST RUN
         return cell
     }
     
@@ -84,7 +91,13 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? MovieDetailViewController else { return }
             
-            let movieToSend = movies[indexPath.row]
+            //TESTRUN
+            //let movieToSend = movies[indexPath.row]
+            
+            guard let marathon = marathon else {
+                return
+            }
+            let movieToSend = marathon.movies[indexPath.row]
             
             destination.movie = movieToSend
         }
@@ -96,7 +109,9 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         
         guard let marathon = marathon else { return }
         self.title = marathon.name
-        fetchMovies()
+        //TESTRUN
+        //fetchMovies()
+        //tableView.reloadData()
     }
     
     func fetchMovies(){
@@ -109,6 +124,7 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
                     switch result{
                     case .success(let movie):
                         self?.movies.append(movie)
+                        //print(movie)
                         self?.tableView.reloadData()
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")

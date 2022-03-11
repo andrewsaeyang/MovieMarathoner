@@ -18,7 +18,6 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
     private let segueID = "toDetailView"
     
     var marathon: Marathon?
-    var movies: [Movie] = [] // TODO: Set this into the singleton
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,14 +33,14 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         guard let marathon = marathon else {
             return 0
         }
-//TESTRUN
+        //TESTRUN
         return marathon.movies.count
         //return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? WatchListTableViewCell,
-        let marathon = marathon else { return UITableViewCell()}
+              let marathon = marathon else { return UITableViewCell()}
         
         cell.movie = marathon.movies[indexPath.row]
         //cell.movie = movies[indexPath.row]
@@ -60,13 +59,14 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
             
             let movieToDelete = marathon.movieIDs[indexPath.row]
             
-            MarathonController.shared.deleteReference(marathon: marathon, movieID: movieToDelete) { [weak self] result in
+            MarathonController.shared.deleteReference(marathon: marathon, movieID: movieToDelete, movie: marathon.movies[indexPath.row]) { [weak self] result in
                 
                 DispatchQueue.main.async {
                     switch result{
                     case .success(let finish):
                         print(finish)
-                        self?.fetchMovies()
+                        //self?.fetchMovies()
+                        self?.tableView.reloadData()
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                     }
@@ -110,24 +110,5 @@ class WatchListViewController: UIViewController, UITableViewDataSource, UITableV
         //tableView.reloadData()
     }
     
-    func fetchMovies(){
-        
-        guard let marathon = marathon else { return }
-        movies = []
-        for id in marathon.movieIDs{
-            MovieAPIController.fetchMovie(with: id.movieID) { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result{
-                    case .success(let movie):
-                        self?.movies.append(movie)
-                        //print(movie)
-                        self?.tableView.reloadData()
-                    case .failure(let error):
-                        print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
-                        
-                    }
-                }
-            }
-        }
-    }
+    
 }// End of class

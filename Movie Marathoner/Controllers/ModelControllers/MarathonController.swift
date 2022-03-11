@@ -140,7 +140,6 @@ class MarathonController{
                 }
             }
             
-            
             marathon.movieIDs = fetchedRecords
             completion(.success("Successfully fetched \(fetchedRecords.count) movieIDs"))
         }
@@ -184,7 +183,7 @@ class MarathonController{
         }
     }
     
-    func deleteReference(marathon: Marathon, movieID: MovieID, completion: @escaping (Result<String, MarathonError>) -> Void ){
+    func deleteReference(marathon: Marathon, movieID: MovieID, movie: Movie, completion: @escaping (Result<String, MarathonError>) -> Void ){
         privateDB.delete(withRecordID: movieID.recordID) { recordID, error in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
@@ -194,9 +193,13 @@ class MarathonController{
             guard let recordID = recordID else { return completion(.failure(.couldNotUnwrap))}
             
             guard let marathonIndex = self.marathons.firstIndex(of: marathon),
-                  let movieIndex = self.marathons[marathonIndex].movieIDs.firstIndex(of: movieID) else { return completion(.failure(.couldNotUnwrap))}
+                  let movieIDIndex = self.marathons[marathonIndex].movieIDs.firstIndex(of: movieID),
+            let movieIndex = self.marathons[marathonIndex].movies.firstIndex(of: movie) else { return completion(.failure(.couldNotUnwrap))}
             
-            self.marathons[marathonIndex].movieIDs.remove(at: movieIndex)
+            self.marathons[marathonIndex].movieIDs.remove(at: movieIDIndex)
+            self.marathons[marathonIndex].movies.remove(at: movieIndex)
+            
+            
             
             completion(.success("Successfully deleted Marathon with id: \(recordID.recordName)"))
         }

@@ -53,3 +53,11 @@ struct Movie: Decodable{
         return dateFormatterPrint.string(from: date)
     }
 }
+extension Movie: Equatable{
+    
+    static func == (lhs: Movie, rhs: Movie ) -> Bool{
+        
+        return lhs.id == rhs.id
+        
+    }
+}

@@ -31,12 +31,11 @@ class MarathonController{
                   let savedMarathon = Marathon(ckRecord: record) else { return completion(.failure(.couldNotUnwrap))}
             
             for movie in movies{
-                
                 self.createMovieReferences(with: movie, marathon: savedMarathon) { result in
                     switch result{
                     case .success(let finish):
                         print(finish)
-                        savedMarathon.movies.append(movie)
+                        //savedMarathon.movies.append(movie)
                         
                     case .failure(let error):
                         print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")

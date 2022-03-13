@@ -34,6 +34,14 @@ class MarathonModeViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(MarathonModeViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        textField.resignFirstResponder()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+    }
     
     // MARK: - Actions
     

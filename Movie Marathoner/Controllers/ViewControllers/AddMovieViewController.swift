@@ -29,6 +29,12 @@ class AddMovieToMarathonViewController: UIViewController, UITableViewDataSource,
     
     // MARK: - Actions
     
+    @IBAction func dismissViewButtonTapped(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     @IBAction func createMarathonButtonTapped(_ sender: Any) {
         presentAddNewMarathonAlertController()
     }

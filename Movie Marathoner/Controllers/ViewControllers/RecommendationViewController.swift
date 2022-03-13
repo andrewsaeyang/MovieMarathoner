@@ -153,7 +153,6 @@ extension RecommendationViewController {
     ///
     func configureRecommendation(){
         marathonTime = marathonTime * 60
-        
         for movie in movieRecommendations{
             if let runTime = movie.runtime{
                 let doesTimeFit = runTime + finalRunTime
@@ -162,7 +161,6 @@ extension RecommendationViewController {
                     finalRecommendation.append(movie)
                     finalRunTime += runTime
                     print("Current runtime: \(countRunTime(for: finalRecommendation)) with \(finalRecommendation.count) movies")
-                    
                 }
             }
         }
@@ -170,8 +168,6 @@ extension RecommendationViewController {
         runTimeLabel.text = "Total runtime: \(printRunTime())"
         collectionView.reloadData()
     }
-    
-    
 }
 
 extension RecommendationViewController{
@@ -181,9 +177,7 @@ extension RecommendationViewController{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? RecommendationCollectionViewCell else { return UICollectionViewCell()}
-        
         cell.movie = finalRecommendation[indexPath.row]
         //cell.delegate = self
         return cell
